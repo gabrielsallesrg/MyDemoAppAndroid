@@ -2,9 +2,13 @@ package br.com.rg.gabrielsalles.mydemoapp2017.randomuser.ui;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.graphics.ColorFilter;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -54,7 +58,6 @@ public class RandomUserDetailActivity extends AppCompatActivity {
 
         final DaoSession daoSession = ((App) getApplication()).getDaoSession();
         prepareDaos(daoSession);
-        Stetho.initializeWithDefaults(this);
 
         final RandomUserActivityDetailBinding binding = DataBindingUtil.setContentView(this, R.layout.random_user_activity_detail);
         final Intent intent = getIntent();
@@ -75,21 +78,11 @@ public class RandomUserDetailActivity extends AppCompatActivity {
 
                 if (isFavorite) {
                     // Save
-                    randomUserPictureDao.insertOrReplace(binding.getRandomuser().getPicture());
-                    randomUserNameDao.insertOrReplace(binding.getRandomuser().getName());
-                    randomUserLoginDao.insertOrReplace(binding.getRandomuser().getLogin());
-                    randomUserLocationDao.insertOrReplace(binding.getRandomuser().getLocation());
-                    randomUserDataIdDao.insertOrReplace(binding.getRandomuser().getDataId());
-                    randomUserDao.insertOrReplace(binding.getRandomuser());
+                    saveUser(binding.getRandomuser());
 
                 } else {
                     // Delete
-                    randomUserPictureDao.delete(binding.getRandomuser().getPicture());
-                    randomUserNameDao.delete(binding.getRandomuser().getName());
-                    randomUserLoginDao.delete(binding.getRandomuser().getLogin());
-                    randomUserLocationDao.delete(binding.getRandomuser().getLocation());
-                    randomUserDataIdDao.delete(binding.getRandomuser().getDataId());
-                    randomUserDao.delete(binding.getRandomuser());
+                    deleteUser(binding.getRandomuser());
                 }
             }
         });
@@ -124,6 +117,26 @@ public class RandomUserDetailActivity extends AppCompatActivity {
         });
     }
 
+    private void saveUser(RandomUser randomUser) {
+        randomUserPictureDao.insertOrReplace(randomUser.getPicture());
+        randomUserNameDao.insertOrReplace(randomUser.getName());
+        randomUserLoginDao.insertOrReplace(randomUser.getLogin());
+        randomUserLocationDao.insertOrReplace(randomUser.getLocation());
+        randomUserDataIdDao.insertOrReplace(randomUser.getDataId());
+        randomUserDao.insertOrReplace(randomUser);
+    }
+
+    private void deleteUser(RandomUser randomUser) {
+        randomUserPictureDao.delete(randomUser.getPicture());
+        randomUserNameDao.delete(randomUser.getName());
+        randomUserLoginDao.delete(randomUser.getLogin());
+        randomUserLocationDao.delete(randomUser.getLocation());
+        randomUserDataIdDao.delete(randomUser.getDataId());
+        randomUserDao.delete(randomUser);
+        randomUser.deleteId();
+
+    }
+
     private void prepareDaos(DaoSession daoSession) {
         randomUserPictureDao  = daoSession.getRandomUserPictureDao();
         randomUserNameDao     = daoSession.getRandomUserNameDao();
@@ -146,18 +159,27 @@ public class RandomUserDetailActivity extends AppCompatActivity {
                 prepareActivityResults();
                 supportFinishAfterTransition();
                 return true;
-            case R.id.edit:
-                Pair<View, String> pair = new Pair<>(findViewById(R.id.thumbnail), getResources().getString(R.string.transition_random_user_image));
-                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, pair);
 
-                Intent intent = new Intent(this, RandomUserEditActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable(RANDOM_USER, mRandomUser);
-                intent.putExtras(bundle);
-                startActivityForResult(intent, RANDOM_USER_EDIT, options.toBundle());
+            case R.id.edit:
+                editUser();
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void imageClick(View v) {
+        editUser();
+    }
+
+    private void editUser() {
+        Pair<View, String> pair = new Pair<>(findViewById(R.id.thumbnail), getResources().getString(R.string.transition_random_user_image));
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, pair);
+
+        Intent intent = new Intent(this, RandomUserEditActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(RANDOM_USER, mRandomUser);
+        intent.putExtras(bundle);
+        startActivityForResult(intent, RANDOM_USER_EDIT, options.toBundle());
     }
 
     @Override

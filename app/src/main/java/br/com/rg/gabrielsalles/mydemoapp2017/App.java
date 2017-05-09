@@ -2,6 +2,8 @@ package br.com.rg.gabrielsalles.mydemoapp2017;
 
 import android.app.Application;
 
+import com.facebook.stetho.Stetho;
+
 import org.greenrobot.greendao.database.Database;
 
 import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models.DaoMaster;
@@ -21,6 +23,8 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        Stetho.initializeWithDefaults(this);
 
         DevOpenHelper helper = new DevOpenHelper(this, ENCRYPTED ? "mydemoapp-db-encrypted" : "mydemoapp-db");
         Database db = ENCRYPTED ? helper.getEncryptedWritableDb("super-secret") : helper.getWritableDb();

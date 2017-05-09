@@ -72,7 +72,6 @@ public class RandomUserFragmentFavorites extends Fragment {
 
         final DaoSession daoSession = ((App) getActivity().getApplication()).getDaoSession();
         prepareDaos(daoSession);
-        Stetho.initializeWithDefaults(getContext());
     }
 
     @Override

@@ -455,6 +455,15 @@ public class RandomUser implements Parcelable {
         this.ru_id = ru_id;
     }
 
+    public void deleteId(){
+        this.ru_id = null;
+        this.getPicture().setId(null);
+        this.getName().setId(null);
+        this.getLogin().setId(null);
+        this.getLocation().setId(null);
+        this.getDataId().setId(null);
+    }
+
     /** called by internal mechanisms, do not call yourself. */
     @Generated(hash = 1640775040)
     public void __setDaoSession(DaoSession daoSession) {

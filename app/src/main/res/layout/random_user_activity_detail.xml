@@ -37,6 +37,8 @@
                     android:adjustViewBounds="true"
                     android:scaleType="centerCrop"
                     android:src="@mipmap/ic_launcher"
+                    android:clickable="true"
+                    android:onClick="imageClick"
                     app:imageUrlDetailGlide="@{randomuser.picture.large}" />
 
                 <TextView
