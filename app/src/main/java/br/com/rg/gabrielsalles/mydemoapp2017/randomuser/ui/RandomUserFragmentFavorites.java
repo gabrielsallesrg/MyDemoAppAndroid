@@ -145,22 +145,10 @@ public class RandomUserFragmentFavorites extends Fragment {
         randomUserDao         = daoSession.getRandomUserDao();
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
     @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }
-
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
     }
 
     @Override
@@ -168,7 +156,7 @@ public class RandomUserFragmentFavorites extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case (RANDOM_USER_DETAIL) : {
-                if ((resultCode == Activity.RESULT_OK || resultCode == Activity.RESULT_CANCELED) && mChosenPos >= 0) {
+                if (resultCode == Activity.RESULT_OK && mChosenPos >= 0) {
                     Bundle bundle = data.getExtras();
                     if (!data.getBooleanExtra(IS_FAVORITED, true)) {
                         mAdapter.removePosition(mChosenPos);

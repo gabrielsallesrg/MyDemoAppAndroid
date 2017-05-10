@@ -16,6 +16,7 @@ import br.com.rg.gabrielsalles.mydemoapp2017.R;
 import br.com.rg.gabrielsalles.mydemoapp2017.databinding.RandomUserActivityEditBinding;
 import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models.RandomUser;
 
+import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.Constants.HAS_NEW_DATA;
 import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.Constants.RANDOM_USER;
 
 public class RandomUserEditActivity extends AppCompatActivity {
@@ -50,13 +51,13 @@ public class RandomUserEditActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 //back
-                prepareActivityResultsThroughBackButton();
+                confirmBackButton();
                 return true;
 
             case R.id.save:
                 //save
-                saveChanges();
                 prepareActivityResults();
+                supportFinishAfterTransition();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -64,11 +65,11 @@ public class RandomUserEditActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        prepareActivityResultsThroughBackButton();
+        confirmBackButton();
     }
 
-    private void prepareActivityResultsThroughBackButton() {
-        if (changesMade()) {
+    private void confirmBackButton() {
+        if (changesWereMade()) {
             // Dialog box asking if keep editing or discard
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(R.string.discard_changes);
@@ -91,14 +92,20 @@ public class RandomUserEditActivity extends AppCompatActivity {
     }
 
     private void prepareActivityResults() {
-
+        Intent resultIntent = new Intent();
+        if (changesWereMade()) {
+            updateRandomUser();
+            Bundle bundle = new Bundle();
+            bundle.putParcelable(RANDOM_USER, mRandomUser);
+            resultIntent.putExtras(bundle);
+            resultIntent.putExtra(HAS_NEW_DATA, true);
+        } else {
+            resultIntent.putExtra(HAS_NEW_DATA, false);
+        }
+        setResult(RESULT_OK, resultIntent);
     }
 
-    private void saveChanges() {
-
-    }
-
-    private boolean changesMade() {
+    private boolean changesWereMade() {
         return !(
                 binding.nameTitleET.        getText().toString().equals(mRandomUser.getName().getTitle())        &&
                 binding.nameFirstET.        getText().toString().equals(mRandomUser.getName().getFirst())        &&
@@ -112,5 +119,20 @@ public class RandomUserEditActivity extends AppCompatActivity {
                 binding.locationStateET.    getText().toString().equals(mRandomUser.getLocation().getState())    &&
                 binding.locationPostcodeET. getText().toString().equals(mRandomUser.getLocation().getPostcode()) &&
                 binding.nationalityET.      getText().toString().equals(mRandomUser.getNat())                    );
+    }
+
+    private void updateRandomUser() {
+        mRandomUser.getName().setTitle(binding.nameTitleET.getText().toString());
+        mRandomUser.getName().setFirst(binding.nameFirstET.getText().toString());
+        mRandomUser.getName().setLast(binding.nameLastET.getText().toString());
+        mRandomUser.setPhone(binding.phoneHomeET.getText().toString());
+        mRandomUser.setCell( binding.phoneCellET.getText().toString());
+        mRandomUser.setEmail(binding.emailET.getText().toString());
+        mRandomUser.setGender(binding.genderET.getText().toString());
+        mRandomUser.getLocation().setStreet(binding.locationStreetET.getText().toString());
+        mRandomUser.getLocation().setCity(binding.locationCityET.getText().toString());
+        mRandomUser.getLocation().setState(binding.locationStateET.getText().toString());
+        mRandomUser.getLocation().setPostcode(binding.locationPostcodeET.getText().toString());
+        mRandomUser.setNat(binding.nationalityET.getText().toString());
     }
 }

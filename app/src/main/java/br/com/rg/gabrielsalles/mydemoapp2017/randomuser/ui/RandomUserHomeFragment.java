@@ -163,7 +163,7 @@ public class RandomUserHomeFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case (RANDOM_USER_DETAIL) : {
-                if ((resultCode == Activity.RESULT_OK || resultCode == Activity.RESULT_CANCELED) && mChosenPos >= 0) {
+                if (resultCode == Activity.RESULT_OK && mChosenPos >= 0) {
                     Bundle bundle = data.getExtras();
                     if (data.getBooleanExtra(HAS_NEW_DATA, false)) {
                         RandomUser randomUser = bundle.getParcelable(RANDOM_USER);

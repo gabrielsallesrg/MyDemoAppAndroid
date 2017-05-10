@@ -1,5 +1,6 @@
 package br.com.rg.gabrielsalles.mydemoapp2017.randomuser.ui;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.ColorFilter;
@@ -50,6 +51,7 @@ public class RandomUserDetailActivity extends AppCompatActivity {
     private RandomUser mRandomUser;
     private boolean isFavorite;
     private boolean hasNewData = false;
+    private RandomUserActivityDetailBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +61,7 @@ public class RandomUserDetailActivity extends AppCompatActivity {
         final DaoSession daoSession = ((App) getApplication()).getDaoSession();
         prepareDaos(daoSession);
 
-        final RandomUserActivityDetailBinding binding = DataBindingUtil.setContentView(this, R.layout.random_user_activity_detail);
+        binding = DataBindingUtil.setContentView(this, R.layout.random_user_activity_detail);
         final Intent intent = getIntent();
 
         Bundle bundle = intent.getExtras();
@@ -183,6 +185,26 @@ public class RandomUserDetailActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case (RANDOM_USER_EDIT) : {
+                if (resultCode == Activity.RESULT_OK) {
+                    Bundle bundle = data.getExtras();
+                    if (data.getBooleanExtra(HAS_NEW_DATA, false)) {
+                        mRandomUser = bundle.getParcelable(RANDOM_USER);
+                        binding.setRandomuser(mRandomUser);
+                        hasNewData = true;
+                        if (mRandomUser.isFavorite()) {
+                            saveUser(mRandomUser);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
     public void onBackPressed() {
         prepareActivityResults();
         super.onBackPressed();
@@ -197,6 +219,5 @@ public class RandomUserDetailActivity extends AppCompatActivity {
         resultIntent.putExtra(HAS_NEW_DATA, hasNewData);
         resultIntent.putExtra(IS_FAVORITED, isFavorite);
         setResult(RESULT_OK, resultIntent);
-        setResult(RESULT_CANCELED, resultIntent);
     }
 }
