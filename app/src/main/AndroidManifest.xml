@@ -31,10 +31,19 @@
             android:name=".randomuser.ui.RandomUserEditActivity"
             android:label="@string/title_activity_random_user_edit"
             android:theme="@style/AppTheme.CollapsingToolbar"/>
-        <!--<activity-->
-            <!--android:name=".randomuser.ui.RandomUserEditActivity"-->
-            <!--android:label="@string/title_activity_random_user_edit"-->
-            <!--android:theme="@style/AppTheme.NoActionBar"/>-->
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="br.com.rg.gabrielsalles.mydemoapp2017.randomuser.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/randomuser_file_paths"/>
+
+        </provider>
+
+
     </application>
 
 </manifest>
