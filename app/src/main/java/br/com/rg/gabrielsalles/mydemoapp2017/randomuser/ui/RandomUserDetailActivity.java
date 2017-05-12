@@ -6,6 +6,7 @@ import android.databinding.DataBindingUtil;
 import android.graphics.ColorFilter;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
@@ -55,7 +56,8 @@ public class RandomUserDetailActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+        if (Build.VERSION.SDK_INT >= 21)
+            getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         super.onCreate(savedInstanceState);
 
         final DaoSession daoSession = ((App) getApplication()).getDaoSession();
@@ -136,7 +138,6 @@ public class RandomUserDetailActivity extends AppCompatActivity {
         randomUserDataIdDao.delete(randomUser.getDataId());
         randomUserDao.delete(randomUser);
         randomUser.deleteId();
-
     }
 
     private void prepareDaos(DaoSession daoSession) {
