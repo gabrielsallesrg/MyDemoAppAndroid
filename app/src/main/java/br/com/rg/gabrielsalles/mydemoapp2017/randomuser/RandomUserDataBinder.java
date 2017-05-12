@@ -39,8 +39,8 @@ public final class RandomUserDataBinder {
                         .crossFade(0) // dontAnimate doesn't work here, see GRB.buildRequestRecursive
                 )
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .placeholder(R.mipmap.ic_launcher)
-                .error(R.mipmap.ic_launcher)
+                .placeholder(R.drawable.ic_account_grey600_48dp)
+                .error(R.drawable.ic_account_grey600_48dp)
                 .into(imageView);
     }
 
@@ -67,9 +67,9 @@ public final class RandomUserDataBinder {
     public static void setImageUrlPicasso(final ImageView imageView, String url) {
         Picasso.with(imageView.getContext())
                 .load(url)
-                .placeholder(R.mipmap.ic_launcher)
+                .placeholder(R.drawable.ic_account_grey600_48dp)
                 .fit()
-                .error(R.mipmap.ic_launcher)
+                .error(R.drawable.ic_account_grey600_48dp)
                 .into(imageView);
     }
 
@@ -78,7 +78,7 @@ public final class RandomUserDataBinder {
         Picasso.with(imageView.getContext())
                 .load(url)
                 .fit()
-                .error(R.mipmap.ic_launcher)
+                .error(R.drawable.ic_account_grey600_48dp)
                 .into(imageView);
     }
 
