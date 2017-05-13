@@ -9,21 +9,22 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import br.com.rg.gabrielsalles.mydemoapp2017.App;
 import br.com.rg.gabrielsalles.mydemoapp2017.R;
 import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.API.RandomUserApiClient;
 import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.API.RandomUserApiInterface;
 import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.adapters.RandomUserRecyclerViewAdapter;
+import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models.DaoSession;
 import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models.RandomUser;
+import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models.RandomUserGenderOption;
+import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models.RandomUserGenderOptionDao;
 import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models.RandomUsersData;
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 import retrofit2.Call;
@@ -33,7 +34,6 @@ import retrofit2.Response;
 import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.Constants.HAS_NEW_DATA;
 import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.Constants.RANDOM_USER;
 import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.Constants.RANDOM_USER_DETAIL;
-import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.Constants.RU_IS_FAVORITES;
 
 
 public class RandomUserHomeFragment extends Fragment {
@@ -48,6 +48,8 @@ public class RandomUserHomeFragment extends Fragment {
     private int mPage = 0;
     private int mScrollState = 0;
     private int mChosenPos = -1;
+    private RandomUserGenderOptionDao mRandomUserGenderOptionDao;
+    private ArrayList<RandomUserGenderOption> mGenderOptions;
 
 
     public RandomUserHomeFragment() {
@@ -57,6 +59,17 @@ public class RandomUserHomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        final DaoSession daoSession = ((App) getActivity().getApplication()).getDaoSession();
+        mRandomUserGenderOptionDao = daoSession.getRandomUserGenderOptionDao();
+        mGenderOptions = (ArrayList<RandomUserGenderOption>) 
+                        mRandomUserGenderOptionDao.queryBuilder()
+                                .orderAsc(RandomUserGenderOptionDao.Properties.Gender)
+                                .list();
+        if (!contains(mGenderOptions, "--"))
+            mGenderOptions.add(new RandomUserGenderOption(null, "--"));
+        if (!contains(mGenderOptions, getString(R.string.ru_gender_other)))
+            mGenderOptions.add(new RandomUserGenderOption(null, getString(R.string.ru_gender_other)));
     }
 
     @Override
@@ -140,10 +153,16 @@ public class RandomUserHomeFragment extends Fragment {
 
                 RandomUsersData randomUsersData = (RandomUsersData) response.body();
                 ArrayList<RandomUser> data = (ArrayList<RandomUser>) randomUsersData.getResults();
+                for (RandomUser randomUser:data) {
+                    if (!contains(mGenderOptions, randomUser.getGender())) {
+                        mGenderOptions.add(new RandomUserGenderOption(null, randomUser.getGender()));
+                    }
+                }
                 mData.remove(mData.size() - 1);
                 mAdapter.notifyItemRemoved(mData.size());
                 mAdapter.addNewData(data);
                 mIsLoading = false;
+                saveGenders();
             }
 
             @Override
@@ -156,6 +175,20 @@ public class RandomUserHomeFragment extends Fragment {
                 requestMoreData();
             }
         });
+    }
+
+    private boolean contains(ArrayList<RandomUserGenderOption> genderOptions , String gender) {
+        for (RandomUserGenderOption genderOption: genderOptions) {
+            if (genderOption.getGender().equals(gender))
+                return true;
+        }
+        return false;
+    }
+
+    private void saveGenders() {
+        for (RandomUserGenderOption genderOption: mGenderOptions) {
+            mRandomUserGenderOptionDao.insertOrReplace(genderOption);
+        }
     }
 
     @Override

@@ -3,7 +3,6 @@ package br.com.rg.gabrielsalles.mydemoapp2017.randomuser.ui;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,16 +18,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.ArrayAdapter;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
+import br.com.rg.gabrielsalles.mydemoapp2017.App;
 import br.com.rg.gabrielsalles.mydemoapp2017.R;
 import br.com.rg.gabrielsalles.mydemoapp2017.databinding.RandomUserActivityEditBinding;
 import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.RandomUserDataBinder;
+import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models.DaoSession;
 import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models.RandomUser;
+import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models.RandomUserGenderOption;
+import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models.RandomUserGenderOptionDao;
 
 import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.Constants.HAS_NEW_DATA;
 import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.Constants.RANDOM_USER;
@@ -45,11 +50,27 @@ public class RandomUserEditActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= 21)
             getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         super.onCreate(savedInstanceState);
+
+        final DaoSession daoSession = ((App) getApplication()).getDaoSession();
+        final RandomUserGenderOptionDao randomUserGenderOptionDao = daoSession.getRandomUserGenderOptionDao();
+        ArrayList<RandomUserGenderOption> genderOptions = (ArrayList<RandomUserGenderOption>)
+                randomUserGenderOptionDao.queryBuilder()
+                .orderAsc(RandomUserGenderOptionDao.Properties.Gender)
+                .list();
+        ArrayList<String> genderOptionsStr = new ArrayList<>();
+        for (RandomUserGenderOption genderOption: genderOptions) {
+            genderOptionsStr.add(genderOption.getGender());
+        }
+
         mBinding = DataBindingUtil.setContentView(this, R.layout.random_user_activity_edit);
         final Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         mRandomUser = bundle.getParcelable(RANDOM_USER);
         mBinding.setRandomuser(mRandomUser);
+        ArrayAdapter<String> genderAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, genderOptionsStr);
+        mBinding.genderSpinner.setAdapter(genderAdapter);
+        int currentGenderPosition = genderAdapter.getPosition(mRandomUser.getGender());
+        mBinding.genderSpinner.setSelection(currentGenderPosition);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -148,18 +169,18 @@ public class RandomUserEditActivity extends AppCompatActivity {
 
     private boolean changesWereMade() {
         return mPictureChanged || !(
-                mBinding.nameTitleET.        getText().toString().equals(mRandomUser.getName().getTitle())        &&
-                mBinding.nameFirstET.        getText().toString().equals(mRandomUser.getName().getFirst())        &&
-                mBinding.nameLastET.         getText().toString().equals(mRandomUser.getName().getLast())         &&
-                mBinding.phoneHomeET.        getText().toString().equals(mRandomUser.getPhone())                  &&
-                mBinding.phoneCellET.        getText().toString().equals(mRandomUser.getCell())                   &&
-                mBinding.emailET.            getText().toString().equals(mRandomUser.getEmail())                  &&
-                mBinding.genderET.           getText().toString().equals(mRandomUser.getGender())                 &&
-                mBinding.locationStreetET.   getText().toString().equals(mRandomUser.getLocation().getStreet())   &&
-                mBinding.locationCityET.     getText().toString().equals(mRandomUser.getLocation().getCity())     &&
-                mBinding.locationStateET.    getText().toString().equals(mRandomUser.getLocation().getState())    &&
-                mBinding.locationPostcodeET. getText().toString().equals(mRandomUser.getLocation().getPostcode()) &&
-                mBinding.nationalityET.      getText().toString().equals(mRandomUser.getNat())                    );
+                mBinding.nameTitleET.          getText().toString().equals(mRandomUser.getName().getTitle())        &&
+                mBinding.nameFirstET.          getText().toString().equals(mRandomUser.getName().getFirst())        &&
+                mBinding.nameLastET.           getText().toString().equals(mRandomUser.getName().getLast())         &&
+                mBinding.phoneHomeET.          getText().toString().equals(mRandomUser.getPhone())                  &&
+                mBinding.phoneCellET.          getText().toString().equals(mRandomUser.getCell())                   &&
+                mBinding.emailET.              getText().toString().equals(mRandomUser.getEmail())                  &&
+                mBinding.genderSpinner.getSelectedItem().toString().equals(mRandomUser.getGender())                 &&
+                mBinding.locationStreetET.     getText().toString().equals(mRandomUser.getLocation().getStreet())   &&
+                mBinding.locationCityET.       getText().toString().equals(mRandomUser.getLocation().getCity())     &&
+                mBinding.locationStateET.      getText().toString().equals(mRandomUser.getLocation().getState())    &&
+                mBinding.locationPostcodeET.   getText().toString().equals(mRandomUser.getLocation().getPostcode()) &&
+                mBinding.nationalityET.        getText().toString().equals(mRandomUser.getNat())                    );
     }
 
     private void updateRandomUser() {
@@ -169,7 +190,7 @@ public class RandomUserEditActivity extends AppCompatActivity {
         mRandomUser.setPhone(mBinding.phoneHomeET.getText().toString());
         mRandomUser.setCell( mBinding.phoneCellET.getText().toString());
         mRandomUser.setEmail(mBinding.emailET.getText().toString());
-        mRandomUser.setGender(mBinding.genderET.getText().toString());
+        mRandomUser.setGender(mBinding.genderSpinner.getSelectedItem().toString());
         mRandomUser.getLocation().setStreet(mBinding.locationStreetET.getText().toString());
         mRandomUser.getLocation().setCity(mBinding.locationCityET.getText().toString());
         mRandomUser.getLocation().setState(mBinding.locationStateET.getText().toString());

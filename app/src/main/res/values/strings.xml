@@ -18,6 +18,7 @@
     <string name="randomuser">Random User</string>
     <string name="randomuser_favorites">Random User Favorites</string>
     <string name="ru_gender">Gender</string>
+    <string name="ru_gender_other">other</string>
     <string name="ru_name_title">Title name</string>
     <string name="ru_name_first">First name</string>
     <string name="ru_name_last">Last name</string>
