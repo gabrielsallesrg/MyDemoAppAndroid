@@ -3,14 +3,10 @@ package br.com.rg.gabrielsalles.mydemoapp2017.randomuser.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.graphics.ColorFilter;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -19,11 +15,8 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ImageButton;
 
-import com.facebook.stetho.Stetho;
-
 import br.com.rg.gabrielsalles.mydemoapp2017.App;
 import br.com.rg.gabrielsalles.mydemoapp2017.R;
-import br.com.rg.gabrielsalles.mydemoapp2017.RootActivity;
 import br.com.rg.gabrielsalles.mydemoapp2017.databinding.RandomUserActivityDetailBinding;
 import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models.DaoSession;
 import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models.RandomUser;
@@ -91,7 +84,7 @@ public class RandomUserDetailActivity extends AppCompatActivity {
             }
         });
 
-        binding.mapsButton.setOnClickListener(new View.OnClickListener() {
+        binding.mapLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Uri mapsUri = Uri.parse("geo:0,0?q=" + Uri.encode(binding.getRandomuser().getAddressForMaps()));
@@ -101,7 +94,7 @@ public class RandomUserDetailActivity extends AppCompatActivity {
             }
         });
 
-        binding.emailButton.setOnClickListener(new View.OnClickListener() {
+        binding.emailLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Uri mailUri = Uri.parse("mailto:" + binding.getRandomuser().getEmail());
@@ -110,7 +103,7 @@ public class RandomUserDetailActivity extends AppCompatActivity {
             }
         });
 
-        binding.phoneButton.setOnClickListener(new View.OnClickListener() {
+        binding.phoneLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent phoneIntent = new Intent(v.getContext(), RandomUserChoosePhoneDialog.class);

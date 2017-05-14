@@ -86,6 +86,8 @@
 
                 <android.support.constraint.ConstraintLayout
                     android:id="@+id/mapLayout"
+                    android:clickable="true"
+                    android:background="?attr/selectableItemBackground"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -105,12 +107,11 @@
                         app:layout_constraintTop_toTopOf="parent"
                         tools:text="9059 o'connell avenue\ngreystones / westmeath / ER\n63004" />
 
-                    <ImageButton
+                    <ImageView
                         android:id="@+id/mapsButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:tint="@color/greyIcon"
+                        android:tint="@color/colorPrimary"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -128,6 +129,8 @@
 
                 <android.support.constraint.ConstraintLayout
                     android:id="@+id/phoneLayout"
+                    android:clickable="true"
+                    android:background="?attr/selectableItemBackground"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -193,12 +196,11 @@
                         app:layout_constraintTop_toTopOf="@+id/guideline3"
                         app:layout_constraintVertical_weight="1" />
 
-                    <ImageButton
+                    <ImageView
                         android:id="@+id/phoneButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:tint="@color/greyIcon"
+                        android:tint="@color/colorPrimary"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -217,6 +219,8 @@
 
                 <android.support.constraint.ConstraintLayout
                     android:id="@+id/emailLayout"
+                    android:clickable="true"
+                    android:background="?attr/selectableItemBackground"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -236,12 +240,11 @@
                         app:layout_constraintTop_toTopOf="parent"
                         tools:text="heather.johnston@example.com" />
 
-                    <ImageButton
+                    <ImageView
                         android:id="@+id/emailButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:tint="@color/greyIcon"
+                        android:tint="@color/colorPrimary"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -321,11 +324,10 @@
                         app:layout_constraintTop_toTopOf="@+id/textView19"
                         tools:text="thedoors" />
 
-                    <ImageButton
+                    <ImageView
                         android:id="@+id/loginButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="?attr/selectableItemBackgroundBorderless"
                         android:tint="@color/greyIcon"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
