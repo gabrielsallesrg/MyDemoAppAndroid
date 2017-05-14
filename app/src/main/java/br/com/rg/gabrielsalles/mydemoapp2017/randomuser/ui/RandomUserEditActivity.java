@@ -44,6 +44,7 @@ public class RandomUserEditActivity extends AppCompatActivity {
     private RandomUserActivityEditBinding mBinding;
     private String mCurrentPhotoPath = "";
     private boolean mPictureChanged = false;
+//    private float mDefaultTextSize = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,10 +68,22 @@ public class RandomUserEditActivity extends AppCompatActivity {
         Bundle bundle = intent.getExtras();
         mRandomUser = bundle.getParcelable(RANDOM_USER);
         mBinding.setRandomuser(mRandomUser);
+//        mDefaultTextSize = mBinding.emailET.getTextSize() / getResources().getDisplayMetrics().scaledDensity;
         ArrayAdapter<String> genderAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, genderOptionsStr);
         mBinding.genderSpinner.setAdapter(genderAdapter);
         int currentGenderPosition = genderAdapter.getPosition(mRandomUser.getGender());
         mBinding.genderSpinner.setSelection(currentGenderPosition);
+//        mBinding.genderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                ((TextView) adapterView.getChildAt(0)).setTextSize(mDefaultTextSize);
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//            }
+//        });
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -96,6 +109,12 @@ public class RandomUserEditActivity extends AppCompatActivity {
             }
         });
     }
+
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        ((TextView)mBinding.genderSpinner.getChildAt(0)).setTextSize(mDefaultTextSize);
+//    }
 
     private void updateActionBarTitle() {
         String newTitle = mBinding.nameTitleET.getText().toString() + " " + mBinding.nameLastET.getText().toString();

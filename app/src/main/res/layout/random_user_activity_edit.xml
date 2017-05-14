@@ -79,18 +79,20 @@
                 android:layout_height="match_parent"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-                <TextView
-                    android:id="@+id/name_TV"
+                <ImageView
+                    android:id="@+id/name_IV"
+                    android:src="@drawable/ic_account_grey600_36dp"
+                    android:tint="@color/colorPrimary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="32dp"
                     android:text="@string/ru_name"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginLeft="24dp"
+                    android:layout_marginLeft="16dp"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    android:layout_marginStart="24dp" />
+                    android:layout_marginStart="16dp" />
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/nameTitle"
@@ -98,12 +100,16 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="24dp"
                     android:layout_marginRight="24dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="0dp"
                     android:hint="@string/ru_name_title"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/name_TV"
-                    app:layout_constraintLeft_toLeftOf="@+id/name_TV">
+                    app:layout_constraintLeft_toLeftOf="@+id/name_IV"
+                    android:layout_marginLeft="48dp"
+                    android:layout_marginStart="48dp"
+                    app:layout_constraintTop_toTopOf="@+id/name_IV"
+                    app:layout_constraintBottom_toBottomOf="@+id/name_IV"
+                    android:layout_marginBottom="0dp">
 
                     <EditText
                         android:id="@+id/nameTitle_ET"
@@ -150,8 +156,8 @@
                     android:hint="@string/ru_name_last"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="@+id/nameTitle"
-                    app:layout_constraintEnd_toEndOf="@+id/nameTitle"
+                    app:layout_constraintStart_toStartOf="@+id/nameFirst"
+                    app:layout_constraintEnd_toEndOf="@+id/nameFirst"
                     tools:text="Guillaume"
                     android:layout_marginTop="8dp"
                     app:layout_constraintTop_toBottomOf="@+id/nameFirst"
@@ -170,17 +176,71 @@
 
                 </android.support.design.widget.TextInputLayout>
 
-
                 <TextView
-                    android:id="@+id/phone_TV"
+                    android:id="@+id/gender_hint"
+                    style="@style/InputLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="0dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/ru_gender"
+                    android:textColor="?android:attr/textColorHint"
+                    app:layout_constraintLeft_toLeftOf="@+id/nameLast"
+                    app:layout_constraintRight_toRightOf="@+id/nameLast"
+                    app:layout_constraintTop_toBottomOf="@+id/nameLast"
+                    tools:text="@string/ru_gender" />
+
+                <Spinner
+                    android:id="@+id/gender_spinner"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="0dp"
+                    android:layout_marginTop="0dp"
+                    android:padding="0dp"
+                    style="@style/RandomUserGenderSpinner"
+                    app:layout_constraintLeft_toLeftOf="@+id/nameLast"
+                    app:layout_constraintRight_toRightOf="@+id/nameLast"
+                    app:layout_constraintTop_toBottomOf="@+id/gender_hint" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/nationality"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="0dp"
+                    android:layout_marginTop="8dp"
+                    android:hint="@string/ru_nat"
+                    app:layout_constraintEnd_toEndOf="@+id/gender_spinner"
+                    app:layout_constraintLeft_toLeftOf="@+id/gender_spinner"
+                    app:layout_constraintRight_toRightOf="@+id/gender_spinner"
+                    app:layout_constraintStart_toStartOf="@+id/gender_spinner"
+                    app:layout_constraintTop_toBottomOf="@+id/gender_spinner">
+
+                    <EditText
+                        android:id="@+id/nationality_ET"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:text="@{randomuser.nat}"
+                        tools:text="BR" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/phone_IV"
+                    android:src="@drawable/ic_phone_grey600_36dp"
+                    android:tint="@color/colorPrimary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/ru_phone"
                     android:textSize="18sp"
-                    android:layout_marginTop="16dp"
-                    app:layout_constraintTop_toBottomOf="@+id/nameLast"
-                    app:layout_constraintStart_toStartOf="@+id/name_TV"
-                    app:layout_constraintLeft_toLeftOf="@+id/name_TV" />
+                    android:layout_marginTop="32dp"
+                    app:layout_constraintTop_toBottomOf="@+id/nationality"
+                    app:layout_constraintStart_toStartOf="@+id/name_IV"
+                    app:layout_constraintLeft_toLeftOf="@+id/name_IV" />
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/phone_home"
@@ -190,10 +250,14 @@
                     tools:text="(42) 1527-3153"
                     app:layout_constraintStart_toStartOf="@+id/nameLast"
                     app:layout_constraintEnd_toEndOf="@+id/nameLast"
-                    app:layout_constraintLeft_toLeftOf="@+id/nameLast"
-                    android:layout_marginTop="16dp"
-                    app:layout_constraintTop_toBottomOf="@+id/phone_TV"
-                    app:layout_constraintRight_toRightOf="@+id/nameLast">
+                    app:layout_constraintLeft_toLeftOf="@+id/gender_spinner"
+                    android:layout_marginTop="0dp"
+                    app:layout_constraintRight_toRightOf="@+id/gender_spinner"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="0dp"
+                    app:layout_constraintTop_toTopOf="@+id/phone_IV"
+                    app:layout_constraintBottom_toBottomOf="@+id/phone_IV"
+                    android:layout_marginBottom="0dp">
 
                     <EditText
                         android:id="@+id/phone_home_ET"
@@ -230,17 +294,19 @@
                 </android.support.design.widget.TextInputLayout>
 
 
-                <TextView
-                    android:id="@+id/email_TV"
+                <ImageView
+                    android:id="@+id/email_IV"
+                    android:src="@drawable/ic_email_grey600_36dp"
+                    android:tint="@color/colorPrimary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="32dp"
                     android:layout_weight="1"
                     android:labelFor="@+id/email"
                     android:text="@string/ru_email"
                     android:textSize="18sp"
-                    app:layout_constraintLeft_toLeftOf="@+id/phone_TV"
-                    app:layout_constraintStart_toStartOf="@+id/phone_TV"
+                    app:layout_constraintLeft_toLeftOf="@+id/phone_IV"
+                    app:layout_constraintStart_toStartOf="@+id/phone_IV"
                     app:layout_constraintTop_toBottomOf="@+id/phone_cell" />
 
                 <android.support.design.widget.TextInputLayout
@@ -251,9 +317,11 @@
                     app:layout_constraintStart_toStartOf="@+id/phone_cell"
                     app:layout_constraintEnd_toEndOf="@+id/phone_cell"
                     app:layout_constraintLeft_toLeftOf="@+id/phone_cell"
-                    android:layout_marginTop="16dp"
-                    app:layout_constraintTop_toBottomOf="@+id/email_TV"
-                    app:layout_constraintRight_toRightOf="@+id/phone_cell">
+                    android:layout_marginTop="0dp"
+                    app:layout_constraintRight_toRightOf="@+id/phone_cell"
+                    app:layout_constraintTop_toTopOf="@+id/email_IV"
+                    app:layout_constraintBottom_toBottomOf="@+id/email_IV"
+                    android:layout_marginBottom="0dp">
 
 
                     <EditText
@@ -266,74 +334,35 @@
                         tools:text="beto.moraes@example.com" />
                 </android.support.design.widget.TextInputLayout>
 
-                <TextView
-                    android:id="@+id/gender_TV"
-                    android:labelFor="@+id/gender"
+                <ImageView
+                    android:id="@+id/location_IV"
+                    android:src="@drawable/ic_map_marker_grey600_36dp"
+                    android:tint="@color/colorPrimary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/ru_gender"
-                    android:textSize="18sp"
-                    android:layout_marginTop="16dp"
-                    app:layout_constraintTop_toBottomOf="@+id/email"
-                    app:layout_constraintStart_toStartOf="@+id/email_TV"
-                    app:layout_constraintLeft_toLeftOf="@+id/email_TV" />
-
-                <Spinner
-                    android:id="@+id/gender_spinner"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="0dp"
-                    android:layout_marginTop="16dp"
-                    app:layout_constraintLeft_toLeftOf="@+id/email"
-                    app:layout_constraintTop_toBottomOf="@+id/gender_TV"
-                    android:layout_marginRight="0dp"
-                    app:layout_constraintRight_toRightOf="@+id/email" />
-
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/gender"
-                    android:hint="@string/ru_gender"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="@+id/email"
-                    app:layout_constraintEnd_toEndOf="@+id/email"
-                    android:layout_marginTop="16dp"
-                    app:layout_constraintTop_toBottomOf="@+id/gender_spinner"
-                    app:layout_constraintLeft_toLeftOf="@+id/email"
-                    app:layout_constraintRight_toRightOf="@+id/email">
-
-                    <EditText
-                        android:id="@+id/gender_ET"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textPersonName"
-                        android:text="@{randomuser.gender}"
-                        tools:text="female" />
-
-                </android.support.design.widget.TextInputLayout>
-
-                <TextView
-                    android:id="@+id/location_TV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="32dp"
                     android:text="@string/ru_location"
                     android:textSize="18sp"
-                    app:layout_constraintStart_toStartOf="@+id/gender_TV"
-                    app:layout_constraintTop_toBottomOf="@+id/gender"
-                    app:layout_constraintLeft_toLeftOf="@+id/gender_TV" />
+                    app:layout_constraintStart_toStartOf="@+id/email_IV"
+                    app:layout_constraintTop_toBottomOf="@+id/email"
+                    app:layout_constraintLeft_toLeftOf="@+id/email_IV"
+                    android:layout_marginLeft="0dp" />
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/locationStreet"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:hint="@string/ru_location_street"
-                    app:layout_constraintEnd_toEndOf="@+id/gender"
-                    app:layout_constraintStart_toStartOf="@+id/gender"
-                    android:layout_marginTop="16dp"
-                    app:layout_constraintTop_toBottomOf="@+id/location_TV"
-                    app:layout_constraintLeft_toLeftOf="@+id/gender"
-                    app:layout_constraintRight_toRightOf="@+id/gender">
+                    app:layout_constraintEnd_toEndOf="@+id/email"
+                    app:layout_constraintStart_toStartOf="@+id/email"
+                    android:layout_marginTop="0dp"
+                    app:layout_constraintLeft_toLeftOf="@+id/email"
+                    app:layout_constraintRight_toRightOf="@+id/email"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="0dp"
+                    app:layout_constraintTop_toTopOf="@+id/location_IV"
+                    app:layout_constraintBottom_toBottomOf="@+id/location_IV"
+                    android:layout_marginBottom="0dp">
 
 
                     <EditText
@@ -416,41 +445,6 @@
                         android:inputType="textPersonName"
                         android:text="@{randomuser.location.postcode}"
                         tools:text="78124" />
-
-                </android.support.design.widget.TextInputLayout>
-
-                <TextView
-                    android:id="@+id/nationality_TV"
-                    android:labelFor="@+id/nationality"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/ru_nat"
-                    android:textSize="18sp"
-                    app:layout_constraintStart_toStartOf="@+id/location_TV"
-                    app:layout_constraintTop_toBottomOf="@+id/locationPostcode"
-                    app:layout_constraintLeft_toLeftOf="@+id/location_TV" />
-
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/nationality"
-                    android:hint="@string/ru_nat"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="@+id/locationPostcode"
-                    app:layout_constraintStart_toStartOf="@+id/locationPostcode"
-                    android:layout_marginTop="16dp"
-                    app:layout_constraintTop_toBottomOf="@+id/nationality_TV"
-                    app:layout_constraintLeft_toLeftOf="@+id/locationPostcode"
-                    app:layout_constraintRight_toRightOf="@+id/locationPostcode">
-
-                    <EditText
-                        android:id="@+id/nationality_ET"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textPersonName"
-                        android:text="@{randomuser.nat}"
-                        tools:text="BR" />
 
                 </android.support.design.widget.TextInputLayout>
 
