@@ -29,7 +29,6 @@
             android:theme="@style/AppDialog" />
         <activity
             android:name=".randomuser.ui.RandomUserEditActivity"
-            android:label="@string/title_activity_random_user_edit"
             android:theme="@style/AppTheme.CollapsingToolbar"/>
 
         <provider

@@ -20,6 +20,7 @@ import android.view.View;
 
 import java.util.List;
 
+import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.ui.RandomUserFragmentAbout;
 import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.ui.RandomUserFragmentFavorites;
 import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.ui.RandomUserHomeFragment;
 
@@ -114,11 +115,10 @@ public class RootActivity extends AppCompatActivity
                 mCurrentFragment = new RandomUserFragmentFavorites();
                 title  = getResources().getString(R.string.randomuser_favorites);
                 break;
-//            case R.id.nav_events:
-//                fragment = new EventsFragment();
-//                title = "Events";
-//                break;
-
+            case R.id.nav_randomuser_about:
+                mCurrentFragment = new RandomUserFragmentAbout();
+                title = getResources().getString(R.string.randomuser_about);
+                break;
         }
 
         if (mCurrentFragment != null) {

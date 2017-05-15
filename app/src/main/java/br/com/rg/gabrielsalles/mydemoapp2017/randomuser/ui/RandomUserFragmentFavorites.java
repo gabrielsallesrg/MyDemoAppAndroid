@@ -45,7 +45,7 @@ import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.Constants.RAND
 
 public class RandomUserFragmentFavorites extends Fragment {
 
-    private RandomUserHomeFragment.OnFragmentInteractionListener mListener;
+    private OnFragmentInteractionListener mListener;
     private RecyclerView mRecyclerView;
     private RandomUserRecyclerViewAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -146,12 +146,6 @@ public class RandomUserFragmentFavorites extends Fragment {
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
@@ -172,5 +166,23 @@ public class RandomUserFragmentFavorites extends Fragment {
 
     public void setChosenUserPos(int pos){
         mChosenPos = pos;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
+    }
+
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(Uri uri);
     }
 }

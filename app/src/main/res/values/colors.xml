@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#ff4081</color>
     <color name="transparent">#00000000</color>
 
 
@@ -13,6 +13,7 @@
 
     <color name="white">#FFF</color>
 
+    <color name="grey600">#FF565656</color>
     <color name="greyIcon">#757575</color>
     <color name="greyDivision">#cccccc</color>
     <color name="callDialog">#616161</color>

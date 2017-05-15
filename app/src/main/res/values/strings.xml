@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">My Demo App 2017</string>
+    <string name="my_email_1">gabrielsalles.rg@gmail.com</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -17,6 +18,7 @@
     <!-- Random User Stuff -->
     <string name="randomuser">Random User</string>
     <string name="randomuser_favorites">Random User Favorites</string>
+    <string name="randomuser_about">Random User About</string>
     <string name="ru_gender">Gender</string>
     <string name="ru_gender_other">other</string>
     <string name="ru_name_title">Title name</string>
@@ -35,6 +37,8 @@
     <string name="ru_login_md5">MD5</string>
     <string name="ru_login_sha1">SHA1</string>
     <string name="ru_login_sha256">SHA256</string>
+    <string name="ru_name">Name</string>
+    <string name="ru_location">Location</string>
     <string name="ru_dob">DOB</string>
     <string name="ru_registered">Registered</string>
     <string name="ru_phone">Phone</string>
@@ -48,9 +52,26 @@
     <string name="ru_picture_medium">Picture</string>
     <string name="ru_picture_thumbnail">Picture</string>
     <string name="ru_nat">Nationality</string>
-    <string name="title_activity_random_user_choose_phone">RandomUserChoosePhone</string>
     <string name="ru_choose_number">Choose number</string>
-    <string name="title_activity_random_user_favorites">RandomUserFavoritesActivity</string>
+
+    <!-- About -->
+    <string name="developer_email">Developer Email</string>
+    <string name="libraries">Libraries</string>
+    <string name="some_libraries">Some Libraries Used</string>
+    <string name="randomuser_generator">Random User\nGenerator</string>
+    <string name="randomuser_text"><i>\"A free, open-source API for generating random user data. Like Lorem Ipsum, but for people\"</i>\n<a href='https://randomuser.me/'>Random User Generator</a></string>
+    <string name="retrofit">Retrofit</string>
+    <string name="retrofit_text"><i>\"A type-safe HTTP client for Android and Java\"</i>\n<a href='http://square.github.io/retrofit/'>Retrofit</a></string>
+    <string name="greendao">greenDAO</string>
+    <string name="greendao_text"><i>\"greenDAO is an open source Android ORM making development for SQLite databases fun again\"</i>\n<a href='http://greenrobot.org/greendao/'>greenDAO</a></string>
+    <string name="glide">Glide</string>
+    <string name="glide_text"><i>\"An image loading and caching library for Android focused on smooth scrolling\"</i>\n<a href='https://github.com/bumptech/glide'>Glide</a></string>
+    <string name="recyclerviewanimators">RecyclesView\nAnimators</string>
+    <string name="recyclerviewanimators_text"><i>\"An Android Animation library which easily add itemanimator to RecyclerView items\"</i>\n<a href='https://github.com/wasabeef/recyclerview-animators'>RecyclerView Animator</a></string>
+    <string name="stetho">Stetho</string>
+    <string name="stetho_text"><i>\"A debug bridge for Android applications\"</i>\n<a href='http://facebook.github.io/stetho/'>Stetho</a></string>
+    <string name="databinding">Data Binding</string>
+    <string name="databinding_text"><a href='https://developer.android.com/topic/libraries/data-binding/index.html'>Data Binding Library</a></string>
 
     <!-- Dialogs -->
     <string name="discard_changes">Discard your changes and quit editing?</string>
@@ -58,10 +79,6 @@
     <string name="discard">Discard</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_random_user_edit">RandomUserEditActivity</string>
-    <string name="ru_name">Name</string>
-    <string name="ru_location">Location</string>
 
 
 </resources>

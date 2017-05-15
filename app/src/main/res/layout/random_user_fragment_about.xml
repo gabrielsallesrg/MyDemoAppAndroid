@@ -1,0 +1,206 @@
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="br.com.rg.gabrielsalles.mydemoapp2017.randomuser.ui.RandomUserFragmentAbout">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/libraries"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/some_libraries"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="16dp"
+                app:layout_constraintLeft_toLeftOf="parent" />
+
+            <TextView
+                android:id="@+id/randomuser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/randomuser_generator"
+                android:textAlignment="viewStart"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="@+id/libraries"
+                app:layout_constraintTop_toTopOf="@+id/randomuser_text"
+                app:layout_constraintBottom_toBottomOf="@+id/randomuser_text" />
+
+            <TextView
+                android:id="@+id/randomuser_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/randomuser_text"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintLeft_toRightOf="@+id/randomuser"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/libraries"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="16dp" />
+
+            <TextView
+                android:id="@+id/retrofit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/retrofit"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="@+id/randomuser"
+                app:layout_constraintTop_toTopOf="@+id/retrofit_text"
+                app:layout_constraintBottom_toBottomOf="@+id/retrofit_text"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/retrofit_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/retrofit_text"
+                app:layout_constraintLeft_toLeftOf="@+id/randomuser_text"
+                app:layout_constraintRight_toRightOf="@+id/randomuser_text"
+                app:layout_constraintHorizontal_bias="0.0"
+                android:layout_marginTop="32dp"
+                app:layout_constraintTop_toBottomOf="@+id/randomuser_text" />
+
+            <TextView
+                android:id="@+id/greendao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/greendao"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="@+id/retrofit"
+                app:layout_constraintTop_toTopOf="@+id/greendao_text"
+                app:layout_constraintBottom_toBottomOf="@+id/greendao_text" />
+
+            <TextView
+                android:id="@+id/greendao_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/greendao_text"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintLeft_toLeftOf="@+id/retrofit_text"
+                app:layout_constraintRight_toRightOf="@+id/retrofit_text"
+                android:layout_marginTop="32dp"
+                app:layout_constraintTop_toBottomOf="@+id/retrofit_text" />
+
+            <TextView
+                android:id="@+id/glide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/glide"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="@+id/greendao"
+                app:layout_constraintBottom_toBottomOf="@+id/glide_text"
+                app:layout_constraintTop_toTopOf="@+id/glide_text" />
+
+            <TextView
+                android:id="@+id/glide_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="@string/glide_text"
+                app:layout_constraintLeft_toLeftOf="@+id/greendao_text"
+                app:layout_constraintRight_toRightOf="@+id/greendao_text"
+                app:layout_constraintTop_toBottomOf="@+id/greendao_text" />
+
+            <TextView
+                android:id="@+id/recyclerviewanimators"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/recyclerviewanimators"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="@+id/glide"
+                app:layout_constraintBottom_toBottomOf="@+id/recyclerviewanimators_text"
+                app:layout_constraintTop_toTopOf="@+id/recyclerviewanimators_text" />
+
+            <TextView
+                android:id="@+id/recyclerviewanimators_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="@string/recyclerviewanimators_text"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintLeft_toLeftOf="@+id/glide_text"
+                app:layout_constraintRight_toRightOf="@+id/glide_text"
+                app:layout_constraintTop_toBottomOf="@+id/glide_text" />
+
+            <TextView
+                android:id="@+id/stetho_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="@string/stetho_text"
+                app:layout_constraintLeft_toLeftOf="@+id/recyclerviewanimators_text"
+                app:layout_constraintRight_toRightOf="@+id/recyclerviewanimators_text"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerviewanimators_text" />
+
+            <TextView
+                android:id="@+id/stetho"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/stetho"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="@+id/stetho_text"
+                app:layout_constraintBottom_toBottomOf="@+id/stetho_text"
+                app:layout_constraintLeft_toLeftOf="@+id/recyclerviewanimators" />
+
+            <TextView
+                android:id="@+id/databinding"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/databinding"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="0dp"
+                app:layout_constraintLeft_toLeftOf="@+id/stetho"
+                app:layout_constraintTop_toTopOf="@+id/databinding_text"
+                android:layout_marginTop="0dp"
+                app:layout_constraintBottom_toBottomOf="@+id/databinding_text"
+                android:layout_marginBottom="0dp" />
+
+            <TextView
+                android:id="@+id/databinding_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/databinding_text"
+                android:layout_marginTop="32dp"
+                app:layout_constraintTop_toBottomOf="@+id/stetho_text"
+                android:layout_marginRight="0dp"
+                app:layout_constraintRight_toRightOf="@+id/stetho_text"
+                android:layout_marginLeft="0dp"
+                app:layout_constraintLeft_toLeftOf="@+id/stetho_text"
+                app:layout_constraintHorizontal_bias="0.0" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginTop="32dp"
+                app:layout_constraintLeft_toLeftOf="@+id/databinding_text"
+                app:layout_constraintRight_toRightOf="@+id/databinding_text"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintTop_toBottomOf="@+id/databinding_text" />
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v4.widget.NestedScrollView>
+</FrameLayout>
