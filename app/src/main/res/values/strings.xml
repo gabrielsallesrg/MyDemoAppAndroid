@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">My Demo App 2017</string>
-    <string name="my_email_1">gabrielsalles.rg@gmail.com</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -78,7 +77,10 @@
     <string name="keep_editing">Keep editing</string>
     <string name="discard">Discard</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <!-- Contact Information -->
+    <string name="my_email_1">gabrielsalles.rg@gmail.com</string>
+    <string name="my_linkedin">www.linkedin.com</string>
+
 
 
 </resources>
