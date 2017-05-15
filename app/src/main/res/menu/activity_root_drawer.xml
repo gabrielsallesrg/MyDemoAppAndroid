@@ -4,11 +4,11 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_randomuser"
-            android:icon="@android:drawable/ic_menu_today"
+            android:icon="@drawable/ic_account_grey600_18dp"
             android:title="@string/randomuser" />
         <item
             android:id="@+id/nav_randomuser_favorites"
-            android:icon="@android:drawable/ic_menu_today"
+            android:icon="@drawable/ic_star_grey600_18dp"
             android:title="@string/randomuser_favorites" />
         <item
             android:id="@+id/nav_gallery"

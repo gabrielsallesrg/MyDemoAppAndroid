@@ -33,6 +33,7 @@ import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.Constants.IS_F
 import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.Constants.MOBILE_NUMBER;
 import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.Constants.RANDOM_USER;
 import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.Constants.RANDOM_USER_EDIT;
+import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.Constants.TOOLBAR_TITLE;
 
 public class RandomUserDetailActivity extends AppCompatActivity {
 
@@ -64,6 +65,7 @@ public class RandomUserDetailActivity extends AppCompatActivity {
         isFavorite = mRandomUser.isFavorite();
         binding.setRandomuser(mRandomUser);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(intent.getStringExtra(TOOLBAR_TITLE));
 
         binding.favorite.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -107,11 +107,12 @@ public class RootActivity extends AppCompatActivity
             case R.id.nav_randomuser:
                 mCurrentFragment = new RandomUserHomeFragment();
 
-                title  = "News";
+                title  = getResources().getString(R.string.randomuser);
                 mViewIsAtHome = true;
                 break;
             case R.id.nav_randomuser_favorites:
                 mCurrentFragment = new RandomUserFragmentFavorites();
+                title  = getResources().getString(R.string.randomuser_favorites);
                 break;
 //            case R.id.nav_events:
 //                fragment = new EventsFragment();

@@ -27,6 +27,7 @@ import fr.castorflex.android.circularprogressbar.CircularProgressBar;
 import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.Constants.RANDOM_USER;
 import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.Constants.RANDOM_USER_DETAIL;
 import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.Constants.RU_IS_FAVORITES;
+import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.Constants.TOOLBAR_TITLE;
 
 
 public class RandomUserRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -117,11 +118,13 @@ public class RandomUserRecyclerViewAdapter extends RecyclerView.Adapter<Recycler
 
                     Fragment fragment = ((RootActivity)context).getCurrentFragment();
                     if (fragment.getView().getId() == R.id.randomuser_favorites_layout) {
+                        intent.putExtra(TOOLBAR_TITLE, fragment.getResources().getString(R.string.randomuser_favorites));
                         ((RandomUserFragmentFavorites) fragment).setChosenUserPos(getLayoutPosition());
                         fragment.startActivityForResult(intent, RANDOM_USER_DETAIL, options.toBundle());
 //                        intent.putExtra(RU_IS_FAVORITES, true);
                     } else {
                         ((RandomUserHomeFragment) fragment).setChosenUserPos(getLayoutPosition());
+                        intent.putExtra(TOOLBAR_TITLE, fragment.getResources().getString(R.string.randomuser));
                         fragment.startActivityForResult(intent, RANDOM_USER_DETAIL, options.toBundle());
 //                        intent.putExtra(RU_IS_FAVORITES, false);
                     }

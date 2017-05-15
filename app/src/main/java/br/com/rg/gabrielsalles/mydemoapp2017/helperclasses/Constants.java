@@ -22,4 +22,9 @@ public class Constants {
     public static final int RANDOM_USER_DETAIL      = 100;
     public static final int RANDOM_USER_EDIT        = 101;
     public static final int REQUEST_IMAGE_CAPTURE   = 500;
+
+    /**
+     * OTHER STUFF
+     */
+    public static final String TOOLBAR_TITLE = "TOOLBAR_TITLE";
 }
