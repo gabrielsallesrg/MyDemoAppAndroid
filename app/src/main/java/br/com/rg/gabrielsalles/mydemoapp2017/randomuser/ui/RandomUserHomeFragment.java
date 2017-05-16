@@ -34,6 +34,7 @@ import retrofit2.Response;
 import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.Constants.HAS_NEW_DATA;
 import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.Constants.RANDOM_USER;
 import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.Constants.RANDOM_USER_DETAIL;
+import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.UsefulMethods.calculateNoOfColumns;
 
 
 public class RandomUserHomeFragment extends Fragment {
@@ -87,7 +88,7 @@ public class RandomUserHomeFragment extends Fragment {
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setHasFixedSize(false);
         //mLayoutManager = new LinearLayoutManager(getContext());
-        mLayoutManager = new GridLayoutManager(getContext(), 3);
+        mLayoutManager = new GridLayoutManager(getContext(), calculateNoOfColumns(getContext()));
         mLayoutManager.setAutoMeasureEnabled(false);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
