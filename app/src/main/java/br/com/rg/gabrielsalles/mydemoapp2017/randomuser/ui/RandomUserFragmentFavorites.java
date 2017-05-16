@@ -34,7 +34,9 @@ import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.Constants.HAS_NEW_DATA;
 import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.Constants.IS_FAVORITED;
 import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.Constants.RANDOM_USER;
+import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.Constants.RANDOM_USERS_DATAS;
 import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.Constants.RANDOM_USER_DETAIL;
+import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.UsefulMethods.calculateNoOfColumns;
 
 public class RandomUserFragmentFavorites extends Fragment {
 
@@ -45,6 +47,7 @@ public class RandomUserFragmentFavorites extends Fragment {
     ArrayList<RandomUser> mData;
     private int mChosenPos = -1;
     private boolean mDrawerNotLoaded = true;
+    private boolean mInstanceSaved = false;
 
     private RandomUserPictureDao randomUserPictureDao;
     private RandomUserNameDao randomUserNameDao;
@@ -80,11 +83,17 @@ public class RandomUserFragmentFavorites extends Fragment {
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setHasFixedSize(false);
         //mLayoutManager = new LinearLayoutManager(getContext());
-        mLayoutManager = new GridLayoutManager(getContext(), 3);
+        mLayoutManager = new GridLayoutManager(getContext(), calculateNoOfColumns(getContext()));
         mLayoutManager.setAutoMeasureEnabled(false);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        prepareForRequestMoreData();
+        if (savedInstanceState != null) {
+            mInstanceSaved = true;
+            mData = savedInstanceState.getParcelableArrayList(RANDOM_USERS_DATAS);
+            mAdapter.addNewData(mData);
+        } else {
+            prepareForRequestMoreData();
+        }
 
         DrawerLayout drawerLayout = ((RootActivity)view.getContext()).getDrawerLayout();
         drawerLayout.addDrawerListener(new ActionBarDrawerToggle(
@@ -97,7 +106,9 @@ public class RandomUserFragmentFavorites extends Fragment {
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
                 if (mDrawerNotLoaded) {
-                    requestMoreData();
+                    if (!mInstanceSaved) {
+                        requestMoreData();
+                    }
                     mDrawerNotLoaded = false;
                 }
             }
@@ -159,6 +170,12 @@ public class RandomUserFragmentFavorites extends Fragment {
 
     public void setChosenUserPos(int pos){
         mChosenPos = pos;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putParcelableArrayList(RANDOM_USERS_DATAS, mData);
+        super.onSaveInstanceState(savedInstanceState);
     }
 
     @Override

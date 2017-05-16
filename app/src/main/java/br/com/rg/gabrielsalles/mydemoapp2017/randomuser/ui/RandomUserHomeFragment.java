@@ -1,10 +1,13 @@
 package br.com.rg.gabrielsalles.mydemoapp2017.randomuser.ui;
 
+import android.animation.AnimatorInflater;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,7 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.view.animation.Animation;
 
 import java.util.ArrayList;
 
@@ -31,8 +34,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.Constants.CURRENT_PAGE;
 import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.Constants.HAS_NEW_DATA;
 import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.Constants.RANDOM_USER;
+import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.Constants.RANDOM_USERS_DATAS;
 import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.Constants.RANDOM_USER_DETAIL;
 import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.UsefulMethods.calculateNoOfColumns;
 
@@ -40,6 +45,7 @@ import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.UsefulMethods.
 public class RandomUserHomeFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
+    private SwipeRefreshLayout mNoInternetLayout;
     private RecyclerView mRecyclerView;
     private RandomUserRecyclerViewAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -49,6 +55,7 @@ public class RandomUserHomeFragment extends Fragment {
     private int mPage = 0;
     private int mScrollState = 0;
     private int mChosenPos = -1;
+    private int mConnectionFail = 0;
     private RandomUserGenderOptionDao mRandomUserGenderOptionDao;
     private ArrayList<RandomUserGenderOption> mGenderOptions;
 
@@ -56,6 +63,15 @@ public class RandomUserHomeFragment extends Fragment {
     public RandomUserHomeFragment() {
         // Required empty public constructor
     }
+
+//    @Override
+//    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
+//        if (enter) {
+//            return AnimatorInflater.loadAnimator(getActivity(), android.view.R.);
+//        }
+//
+//        return super.onCreateAnimation(transit, enter, nextAnim);
+//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -81,6 +97,7 @@ public class RandomUserHomeFragment extends Fragment {
 
         mApiInterface = RandomUserApiClient.getClient().create(RandomUserApiInterface.class);
 
+        mNoInternetLayout = (SwipeRefreshLayout) view.findViewById(R.id.no_internet_layout);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.randomuser_recyclerView);
         mRecyclerView.setHasFixedSize(true);
         mAdapter = new RandomUserRecyclerViewAdapter(new ArrayList<RandomUser>(), mRecyclerView);
@@ -114,8 +131,24 @@ public class RandomUserHomeFragment extends Fragment {
             }
         });
 
-        prepareForRequestMoreData();
-        requestMoreData();
+        mNoInternetLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                hideRecyclerView(false);
+                mNoInternetLayout.setRefreshing(false);
+                requestMoreData();
+            }
+        });
+
+        if (savedInstanceState != null) {
+            mData = savedInstanceState.getParcelableArrayList(RANDOM_USERS_DATAS);
+            mAdapter.addNewData(mData);
+            mPage = savedInstanceState.getInt(CURRENT_PAGE, 0);
+            mIsLoading = false;
+        } else {
+            prepareForRequestMoreData();
+            requestMoreData();
+        }
 
         return view;
     }
@@ -146,16 +179,22 @@ public class RandomUserHomeFragment extends Fragment {
                 mAdapter.addNewData(data);
                 mIsLoading = false;
                 saveGenders();
+                mConnectionFail = 0;
             }
 
             @Override
             public void onFailure(Call call, Throwable t) {
-                Toast.makeText(getContext(), "Connection error: " + t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                 Log.e("CONNECTION ERROR", t.getMessage());
                 Log.e("CONNECTION ERROR", t.getLocalizedMessage());
                 Log.e("CONNECTION ERROR", t.toString());
                 mPage--;
-                requestMoreData();
+                mConnectionFail++;
+                if (mConnectionFail >= 3) {
+                    hideRecyclerView(true);
+                    mConnectionFail = 0;
+                } else {
+                    requestMoreData();
+                }
             }
         });
     }
@@ -193,6 +232,23 @@ public class RandomUserHomeFragment extends Fragment {
 
     public void setChosenUserPos(int pos){
         mChosenPos = pos;
+    }
+
+    public void hideRecyclerView(boolean hideRecyclerView) {
+        if (hideRecyclerView) {
+            mNoInternetLayout.setVisibility(View.VISIBLE);
+            mRecyclerView.setVisibility(View.GONE);
+        } else {
+            mRecyclerView.setVisibility(View.VISIBLE);
+            mNoInternetLayout.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putParcelableArrayList(RANDOM_USERS_DATAS, mData);
+        savedInstanceState.putInt(CURRENT_PAGE, mPage);
+        super.onSaveInstanceState(savedInstanceState);
     }
 
     public void onButtonPressed(Uri uri) {

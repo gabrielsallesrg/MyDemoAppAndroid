@@ -5,10 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +24,6 @@ import fr.castorflex.android.circularprogressbar.CircularProgressBar;
 
 import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.Constants.RANDOM_USER;
 import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.Constants.RANDOM_USER_DETAIL;
-import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.Constants.RU_IS_FAVORITES;
 import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.Constants.TOOLBAR_TITLE;
 
 
@@ -121,15 +118,11 @@ public class RandomUserRecyclerViewAdapter extends RecyclerView.Adapter<Recycler
                         intent.putExtra(TOOLBAR_TITLE, fragment.getResources().getString(R.string.randomuser_favorites));
                         ((RandomUserFragmentFavorites) fragment).setChosenUserPos(getLayoutPosition());
                         fragment.startActivityForResult(intent, RANDOM_USER_DETAIL, options.toBundle());
-//                        intent.putExtra(RU_IS_FAVORITES, true);
                     } else {
                         ((RandomUserHomeFragment) fragment).setChosenUserPos(getLayoutPosition());
                         intent.putExtra(TOOLBAR_TITLE, fragment.getResources().getString(R.string.randomuser));
                         fragment.startActivityForResult(intent, RANDOM_USER_DETAIL, options.toBundle());
-//                        intent.putExtra(RU_IS_FAVORITES, false);
                     }
-//                    ((RootActivity) context).startActivityForResult(intent, RANDOM_USER_DETAIL, options.toBundle());
-//                    context.startActivity(intent, options.toBundle());
                 }
             });
         }

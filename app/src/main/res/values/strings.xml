@@ -84,6 +84,8 @@
     <string name="my_linkedin">https://www.linkedin.com/in/gabriel-salles-guedes-111018a0/</string>
     <string name="my_linkedin_id">gabriel-salles-guedes-111018a0</string>
 
+    <!-- ERRORS -->
+    <string name="no_internet">No internet connection</string>
 
 
 </resources>

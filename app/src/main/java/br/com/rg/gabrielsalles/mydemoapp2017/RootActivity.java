@@ -1,6 +1,7 @@
 package br.com.rg.gabrielsalles.mydemoapp2017;
 
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -14,6 +15,9 @@ import android.view.MenuItem;
 import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.ui.RandomUserFragmentAbout;
 import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.ui.RandomUserFragmentFavorites;
 import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.ui.RandomUserHomeFragment;
+
+import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.Constants.CURRENT_FRAGMENT;
+
 
 public class RootActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -37,7 +41,19 @@ public class RootActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        displayView(R.id.nav_randomuser);
+
+        if (savedInstanceState == null) {
+            onNavigationItemSelected(navigationView.getMenu().getItem(0));
+            navigationView.getMenu().getItem(0).setChecked(true);
+        } else {
+            mCurrentFragment = getSupportFragmentManager().getFragment(savedInstanceState, CURRENT_FRAGMENT);
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle savedInstanceState) {
+        getSupportFragmentManager().putFragment(savedInstanceState, CURRENT_FRAGMENT, mCurrentFragment);
+        super.onSaveInstanceState(savedInstanceState);
     }
 
     @Override
@@ -53,21 +69,6 @@ public class RootActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -78,40 +79,53 @@ public class RootActivity extends AppCompatActivity
 
     public void displayView(int viewId) {
         String title = getString(R.string.app_name);
-
+        boolean skip = false;
         switch (viewId) {
             case R.id.nav_randomuser:
+                if (mCurrentFragment instanceof RandomUserHomeFragment) {
+                    skip = true;
+                }
                 mCurrentFragment = new RandomUserHomeFragment();
-
                 title  = getResources().getString(R.string.randomuser);
                 mViewIsAtHome = true;
                 break;
+
             case R.id.nav_randomuser_favorites:
+                if (mCurrentFragment instanceof RandomUserFragmentFavorites) {
+                    skip = true;
+                }
                 mCurrentFragment = new RandomUserFragmentFavorites();
                 title  = getResources().getString(R.string.randomuser_favorites);
                 break;
+
             case R.id.nav_randomuser_about:
+                if (mCurrentFragment instanceof RandomUserFragmentAbout) {
+                    skip = true;
+                }
                 mCurrentFragment = new RandomUserFragmentAbout();
                 title = getResources().getString(R.string.randomuser_about);
                 break;
+
             case R.id.nav_contact_info:
+                if (mCurrentFragment instanceof ContactInformationFragment) {
+                    skip = true;
+                }
                 mCurrentFragment = new ContactInformationFragment();
                 title = getResources().getString(R.string.contact_info);
                 break;
         }
 
-        if (mCurrentFragment != null) {
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.content_frame, mCurrentFragment);
-            ft.commit();
+        if (!skip) {
+            if (mCurrentFragment != null) {
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.content_frame, mCurrentFragment);
+                ft.commit();
+            }
+            // set the toolbar title
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setTitle(title);
+            }
         }
-
-        // set the toolbar title
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(title);
-        }
-
-        mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawer.closeDrawer(GravityCompat.START);
     }
 
@@ -122,5 +136,4 @@ public class RootActivity extends AppCompatActivity
     public DrawerLayout getDrawerLayout() {
         return mDrawer;
     }
-
 }
