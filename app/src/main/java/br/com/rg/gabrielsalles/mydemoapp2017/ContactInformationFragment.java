@@ -1,13 +1,16 @@
 package br.com.rg.gabrielsalles.mydemoapp2017;
 
-import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.List;
 
 
 public class ContactInformationFragment extends Fragment {
@@ -27,17 +30,30 @@ public class ContactInformationFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.contact_information_fragment, container, false);
+
+        view.findViewById(R.id.email).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri mailUri = Uri.parse("mailto:" + getResources().getString(R.string.my_email_1));
+                Intent mailIntent = new Intent(Intent.ACTION_SENDTO, mailUri);
+                startActivity(mailIntent);
+            }
+        });
+
+        view.findViewById(R.id.linkedIn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String linkedInId = getResources().getString(R.string.my_linkedin_id);
+                Intent linkedInIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("linkedin://add/%@" + linkedInId));
+                final PackageManager packageManager = getContext().getPackageManager();
+                final List<ResolveInfo> list = packageManager.queryIntentActivities(linkedInIntent, PackageManager.MATCH_DEFAULT_ONLY);
+                if (list.isEmpty()) {
+                    linkedInIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.linkedin.com/profile/view?id=" + linkedInId));
+                }
+                startActivity(linkedInIntent);
+            }
+        });
         return view;
-    }
-
-    public void sendEmailToDev(View v) {
-        Uri mailUri = Uri.parse("mailto:" + getResources().getString(R.string.my_email_1));
-        Intent mailIntent = new Intent(Intent.ACTION_SENDTO, mailUri);
-        startActivity(mailIntent);
-    }
-
-    public void accessDevLinkedin(View v) {
-
     }
 
     @Override
@@ -46,7 +62,6 @@ public class ContactInformationFragment extends Fragment {
         mListener = null;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -54,7 +69,6 @@ public class ContactInformationFragment extends Fragment {
     }
 
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }

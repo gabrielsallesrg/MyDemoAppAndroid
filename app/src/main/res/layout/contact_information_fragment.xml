@@ -14,12 +14,13 @@
         android:layout_height="match_parent">
 
         <android.support.v7.widget.CardView
-            android:clickable="true"
-            android:background="?attr/selectableItemBackground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <LinearLayout
+                android:id="@+id/email"
+                android:clickable="true"
+                android:background="?attr/selectableItemBackground"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -47,12 +48,13 @@
             android:layout_height="16dp" />
 
         <android.support.v7.widget.CardView
-            android:clickable="true"
-            android:background="?attr/selectableItemBackground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <LinearLayout
+                android:id="@+id/linkedIn"
+                android:clickable="true"
+                android:background="?attr/selectableItemBackground"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -66,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:text="@string/my_linkedin"
+                    android:text="@string/my_name"
                     android:textAlignment="center"
                     android:textSize="18sp"
                     android:textStyle="bold" />
