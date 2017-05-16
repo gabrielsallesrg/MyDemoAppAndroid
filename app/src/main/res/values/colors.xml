@@ -12,7 +12,8 @@
     <color name="yellow">#FF0</color>
     <color name="black">#000</color>
     <color name="white">#FFF</color>
-    <color name="trans50">#88000000</color>
+
+    <color name="behind_cardview">#eeeeee</color>
 
     <color name="grey600">#FF565656</color>
     <color name="greyIcon">#757575</color>
