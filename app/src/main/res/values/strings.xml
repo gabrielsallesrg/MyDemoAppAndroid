@@ -56,7 +56,7 @@
     <!-- About -->
     <string name="developer_email">Developer Email</string>
     <string name="libraries">Libraries</string>
-    <string name="some_libraries">Some Libraries Used</string>
+    <string name="some_libraries">Some Libraries / API Used</string>
     <string name="randomuser_generator">Random User\nGenerator</string>
     <string name="randomuser_text"><i>\"A free, open-source API for generating random user data. Like Lorem Ipsum, but for people\"</i>\n<a href='https://randomuser.me/'>Random User Generator</a></string>
     <string name="retrofit">Retrofit</string>

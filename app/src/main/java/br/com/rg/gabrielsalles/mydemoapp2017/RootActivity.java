@@ -1,7 +1,6 @@
 package br.com.rg.gabrielsalles.mydemoapp2017;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -17,6 +16,7 @@ import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.ui.RandomUserFragmentFav
 import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.ui.RandomUserHomeFragment;
 
 import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.Constants.CURRENT_FRAGMENT;
+import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.Constants.CURRENT_TITLE;
 
 
 public class RootActivity extends AppCompatActivity
@@ -47,12 +47,14 @@ public class RootActivity extends AppCompatActivity
             navigationView.getMenu().getItem(0).setChecked(true);
         } else {
             mCurrentFragment = getSupportFragmentManager().getFragment(savedInstanceState, CURRENT_FRAGMENT);
+            getSupportActionBar().setTitle(savedInstanceState.getString(CURRENT_TITLE, ""));
         }
     }
 
     @Override
     protected void onSaveInstanceState(Bundle savedInstanceState) {
         getSupportFragmentManager().putFragment(savedInstanceState, CURRENT_FRAGMENT, mCurrentFragment);
+        savedInstanceState.putString(CURRENT_TITLE, getSupportActionBar().getTitle().toString());
         super.onSaveInstanceState(savedInstanceState);
     }
 

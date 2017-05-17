@@ -17,6 +17,7 @@ public class Constants {
     public static final String RANDOM_USERS_DATAS   = "RANDOM_USERS_DATAS";
     public static final String CURRENT_PAGE         = "CURRENT_PAGE";
     public static final String CURRENT_FRAGMENT     = "CURRENT_FRAGMENT";
+    public static final String CURRENT_TITLE        = "CURRENT_TITLE";
 
     /**
      * ACTIVITY FOR RESULTS
