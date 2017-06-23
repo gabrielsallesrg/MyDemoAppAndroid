@@ -27,6 +27,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:tint="@color/colorPrimary"
                     android:src="@drawable/ic_mail_48dp"/>
 
                 <TextView
@@ -61,6 +62,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:tint="@color/colorPrimary"
                     android:src="@drawable/ic_linkedin"/>
 
                 <TextView
