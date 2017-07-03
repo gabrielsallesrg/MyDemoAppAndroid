@@ -5,7 +5,6 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.squareup.picasso.Picasso;
 
 import br.com.rg.gabrielsalles.mydemoapp2017.R;
 
@@ -58,24 +57,24 @@ public final class RandomUserDataBinder {
                 .into(imageView);
     }
 
-    @BindingAdapter({"imageUrlPicasso"})
-    public static void setImageUrlPicasso(final ImageView imageView, String url) {
-        Picasso.with(imageView.getContext())
-                .load(url)
-                .placeholder(R.drawable.ic_account_grey600_48dp)
-                .fit()
-                .error(R.drawable.ic_account_grey600_48dp)
-                .into(imageView);
-    }
-
-    @BindingAdapter({"imageUrlDetailPicasso"})
-    public static void setImageUrlDetailPicasso(final ImageView imageView, String url) {
-        Picasso.with(imageView.getContext())
-                .load(url)
-                .fit()
-                .error(R.drawable.ic_account_grey600_48dp)
-                .into(imageView);
-    }
+//    @BindingAdapter({"imageUrlPicasso"})
+//    public static void setImageUrlPicasso(final ImageView imageView, String url) {
+//        Picasso.with(imageView.getContext())
+//                .load(url)
+//                .placeholder(R.drawable.ic_account_grey600_48dp)
+//                .fit()
+//                .error(R.drawable.ic_account_grey600_48dp)
+//                .into(imageView);
+//    }
+//
+//    @BindingAdapter({"imageUrlDetailPicasso"})
+//    public static void setImageUrlDetailPicasso(final ImageView imageView, String url) {
+//        Picasso.with(imageView.getContext())
+//                .load(url)
+//                .fit()
+//                .error(R.drawable.ic_account_grey600_48dp)
+//                .into(imageView);
+//    }
 
 
 }

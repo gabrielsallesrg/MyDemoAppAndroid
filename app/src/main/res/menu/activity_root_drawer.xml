@@ -11,9 +11,13 @@
             android:icon="@drawable/ic_star_grey600_18dp"
             android:title="@string/randomuser_favorites" />
         <item
+            android:id="@+id/nav_firebase_notification"
+            android:icon="@drawable/ic_star_grey600_18dp"
+            android:title="@string/firebase_notification" />
+        <item
             android:id="@+id/nav_randomuser_about"
             android:icon="@drawable/ic_about_grey600_18dp"
-            android:title="@string/randomuser_about" />
+            android:title="@string/app_about" />
         <!--<item-->
             <!--android:id="@+id/nav_slideshow"-->
             <!--android:icon="@drawable/ic_menu_slideshow"-->
