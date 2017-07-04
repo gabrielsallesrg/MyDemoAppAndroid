@@ -60,6 +60,9 @@
     <string name="time">Time</string>
     <string name="fn_send_to_youserlf">Send a notification to yourself using Firebase</string>
     <string name="fn_notification_message">Notification message</string>
+    <string name="send">Send</string>
+    <string name="fn_all_fields_required">All fields are required</string>
+    <string name="fn_wrong_date">Date needs to be, at least, 1 minute from now</string>
 
     <!-- About -->
     <string name="developer_email">Developer Email</string>
@@ -94,6 +97,5 @@
 
     <!-- ERRORS -->
     <string name="no_internet">No internet connection</string>
-    <string name="send">Send</string>
 
 </resources>

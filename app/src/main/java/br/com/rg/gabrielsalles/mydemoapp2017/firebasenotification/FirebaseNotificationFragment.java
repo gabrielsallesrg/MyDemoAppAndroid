@@ -8,7 +8,9 @@ import java.util.Calendar;
 
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +24,8 @@ public class FirebaseNotificationFragment extends Fragment implements View.OnCli
 
     private EditText mDateET;
     private EditText mTimeET;
+    private EditText mNotificationET;
+    private CardView mSendCV;
     private Calendar mCalendar = Calendar.getInstance();
     private DateFormat mDateFormat;
     private DateFormat mTimeFormat;
@@ -48,8 +52,13 @@ public class FirebaseNotificationFragment extends Fragment implements View.OnCli
         View v = inflater.inflate(R.layout.firebase_notification_fragment, container, false);
         mDateET = (EditText) v.findViewById(R.id.fn_date_text);
         mTimeET = (EditText) v.findViewById(R.id.fn_time_text);
+        mSendCV = (CardView) v.findViewById(R.id.fn_send_notification);
+        mNotificationET = (EditText) v.findViewById(R.id.fn_notification_input_Text);
         mDateET.setOnClickListener(this);
         mTimeET.setOnClickListener(this);
+        mSendCV.setOnClickListener(this);
+        mDateET.setText(mDateFormat.format(mCalendar.getTime()));
+        mTimeET.setText(mTimeFormat.format(mCalendar.getTime()));
         return v;
     }
 
@@ -80,6 +89,39 @@ public class FirebaseNotificationFragment extends Fragment implements View.OnCli
                     }
                 }, mCalendar.get(Calendar.HOUR_OF_DAY), mCalendar.get(Calendar.MINUTE), mIs24HourFormat).show();
                 break;
+
+            case R.id.fn_send_notification:
+                if (allFieldsAreCorrect()) {
+                    makeSnackbar("Everything all right");
+                }
+                break;
         }
+    }
+
+    private boolean allFieldsAreCorrect() {
+        return allFieldsAreFilledIn() && dateIsCorrect();
+    }
+
+    private boolean allFieldsAreFilledIn() {
+        return (mDateET.getText().toString().trim().length() > 0) &&
+                (mTimeET.getText().toString().trim().length() > 0) &&
+                (mNotificationET.getText().toString().trim().length() > 0)
+                ||
+                makeSnackbarWithBooleanReturn(getString(R.string.fn_all_fields_required), false);
+    }
+
+    private boolean dateIsCorrect() {
+        return mCalendar.getTimeInMillis() > Calendar.getInstance().getTimeInMillis()
+                ||
+                makeSnackbarWithBooleanReturn(getString(R.string.fn_wrong_date), false);
+    }
+
+    private boolean makeSnackbarWithBooleanReturn(String text, boolean ret) {
+        makeSnackbar(text);
+        return ret;
+    }
+
+    private void makeSnackbar(String text) {
+        Snackbar.make(getView(), text, Snackbar.LENGTH_LONG).show();
     }
 }
