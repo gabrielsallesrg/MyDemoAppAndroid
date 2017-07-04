@@ -94,5 +94,6 @@
 
     <!-- ERRORS -->
     <string name="no_internet">No internet connection</string>
+    <string name="send">Send</string>
 
 </resources>
