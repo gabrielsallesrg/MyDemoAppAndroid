@@ -59,7 +59,7 @@
     <string name="date">Date</string>
     <string name="time">Time</string>
     <string name="fn_send_to_youserlf">Send a notification to yourself using Firebase</string>
-    <string name="pn_notification_message">Notification message</string>
+    <string name="fn_notification_message">Notification message</string>
 
     <!-- About -->
     <string name="developer_email">Developer Email</string>

@@ -100,7 +100,7 @@
                 android:id="@+id/fn_notification_input_Text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/pn_notification_message"
+                android:hint="@string/fn_notification_message"
                 android:maxLines="100" />
         </android.support.design.widget.TextInputLayout>
 
