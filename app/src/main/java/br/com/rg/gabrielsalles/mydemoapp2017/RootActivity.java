@@ -11,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import br.com.rg.gabrielsalles.mydemoapp2017.firebasenotification.FirebaseNotificationFragment;
 import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.ui.RandomUserFragmentAbout;
 import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.ui.RandomUserFragmentFavorites;
 import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.ui.RandomUserHomeFragment;
@@ -101,13 +100,13 @@ public class RootActivity extends AppCompatActivity
                 title  = getResources().getString(R.string.randomuser_favorites);
                 break;
 
-            case R.id.nav_firebase_notification:
-                if (mCurrentFragment instanceof FirebaseNotificationFragment) {
-                    skip = true;
-                }
-                mCurrentFragment = new FirebaseNotificationFragment();
-                title  = getResources().getString(R.string.firebase_notification);
-                break;
+//            case R.id.nav_firebase_notification:
+//                if (mCurrentFragment instanceof FirebaseNotificationFragment) {
+//                    skip = true;
+//                }
+//                mCurrentFragment = new FirebaseNotificationFragment();
+//                title  = getResources().getString(R.string.firebase_notification);
+//                break;
 
             case R.id.nav_randomuser_about:
                 if (mCurrentFragment instanceof RandomUserFragmentAbout) {
