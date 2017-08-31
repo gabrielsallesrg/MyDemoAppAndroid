@@ -1,4 +1,4 @@
-package br.com.rg.gabrielsalles.mydemoapp2017;
+package br.com.rg.gabrielsalles.mydemoapp2017.contactinformation;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.List;
+
+import br.com.rg.gabrielsalles.mydemoapp2017.R;
 
 
 public class ContactInformationFragment extends Fragment {

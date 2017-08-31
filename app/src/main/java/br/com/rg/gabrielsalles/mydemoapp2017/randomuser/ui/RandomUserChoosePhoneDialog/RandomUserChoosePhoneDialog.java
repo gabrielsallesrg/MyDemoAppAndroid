@@ -1,4 +1,4 @@
-package br.com.rg.gabrielsalles.mydemoapp2017.randomuser.ui;
+package br.com.rg.gabrielsalles.mydemoapp2017.randomuser.ui.RandomUserChoosePhoneDialog;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -13,10 +13,11 @@ import br.com.rg.gabrielsalles.mydemoapp2017.R;
 import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.Constants.HOME_NUMBER;
 import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.Constants.MOBILE_NUMBER;
 
-public class RandomUserChoosePhoneDialog extends AppCompatActivity {
+public class RandomUserChoosePhoneDialog extends AppCompatActivity implements ChoosePhoneInterface {
 
-    private String homeNumber = "";
-    private String cellNumber = "";
+    ChoosePhonePresenter presenter;
+    TextView mHomeNumTextView;
+    TextView mCellNumTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,32 +25,49 @@ public class RandomUserChoosePhoneDialog extends AppCompatActivity {
         setContentView(R.layout.random_user_activity_choose_phone);
         ConstraintLayout callHomeLayout   = (ConstraintLayout) findViewById(R.id.callHomeLayout);
         ConstraintLayout callMobileLayout = (ConstraintLayout) findViewById(R.id.callMobileLayout);
-        TextView homeNumTextView = (TextView) findViewById(R.id.homeNumView);
-        TextView cellNumTextView = (TextView) findViewById(R.id.mobileNumView);
-        homeNumber = getIntent().getStringExtra(HOME_NUMBER);
-        cellNumber = getIntent().getStringExtra(MOBILE_NUMBER);
-        homeNumTextView.setText(homeNumber);
-        cellNumTextView.setText(cellNumber);
+        mHomeNumTextView = (TextView) findViewById(R.id.homeNumView);
+        mCellNumTextView = (TextView) findViewById(R.id.mobileNumView);
+        presenter = new ChoosePhonePresenter(this);
 
         callHomeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                phoneCallIntent(homeNumber);
+                presenter.callHome();
             }
         });
 
         callMobileLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                phoneCallIntent(cellNumber);
+                presenter.callCell();
             }
         });
     }
 
-    private void phoneCallIntent(String number) {
+    @Override
+    public void setHomeNumberView(String number) {
+        mHomeNumTextView.setText(number);
+    }
+
+    @Override
+    public void setCellNumberView(String number) {
+        mCellNumTextView.setText(number);
+    }
+
+    @Override
+    public String getHomeNumber() {
+        return getIntent().getStringExtra(HOME_NUMBER);
+    }
+
+    @Override
+    public String getCellNumber() {
+        return getIntent().getStringExtra(MOBILE_NUMBER);
+    }
+
+    @Override
+    public void makePhoneCall(String number) {
         Intent callIntent = new Intent(Intent.ACTION_DIAL);
         callIntent.setData(Uri.parse("tel:" + number));
         startActivity(callIntent);
     }
-
 }

@@ -12,9 +12,9 @@ import br.com.rg.gabrielsalles.mydemoapp2017.R;
  * Created by gabriel on 18/04/17.
  */
 
-public final class RandomUserDataBinder {
+public final class RandomUserImageDataBinder {
 
-    private RandomUserDataBinder() {
+    private RandomUserImageDataBinder() {
 
     }
 

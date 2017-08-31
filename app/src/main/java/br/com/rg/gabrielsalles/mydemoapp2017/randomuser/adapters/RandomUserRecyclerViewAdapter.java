@@ -16,10 +16,10 @@ import java.util.ArrayList;
 import br.com.rg.gabrielsalles.mydemoapp2017.R;
 import br.com.rg.gabrielsalles.mydemoapp2017.RootActivity;
 import br.com.rg.gabrielsalles.mydemoapp2017.databinding.RandomUserCellBinding;
-import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.ui.RandomUserDetailActivity;
+import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.ui.RandomUserDetail.RandomUserDetailActivity;
 import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models.RandomUser;
-import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.ui.RandomUserFragmentFavorites;
-import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.ui.RandomUserHomeFragment;
+import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.ui.RandomUserFavorites.RandomUserFragmentFavorites;
+import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.ui.RandomUserHome.RandomUserHomeFragment;
 import fr.castorflex.android.circularprogressbar.CircularProgressBar;
 
 import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.Constants.RANDOM_USER;
@@ -34,7 +34,7 @@ public class RandomUserRecyclerViewAdapter extends RecyclerView.Adapter<Recycler
     private final int VIEW_LOADING = 0;
 
 
-    public RandomUserRecyclerViewAdapter (ArrayList<RandomUser> data, RecyclerView recyclerView) {
+    public RandomUserRecyclerViewAdapter (ArrayList<RandomUser> data) {
         mData = data;
     }
 
@@ -66,12 +66,6 @@ public class RandomUserRecyclerViewAdapter extends RecyclerView.Adapter<Recycler
     @Override
     public int getItemCount() {
         return mData.size();
-    }
-
-    public void addNewData(ArrayList<RandomUser> newData) {
-        int previousDataSize = mData.size();
-        mData.addAll(newData);
-        notifyItemRangeInserted(previousDataSize, newData.size());
     }
 
     public void updatePosition(int pos, RandomUser randomUser) {

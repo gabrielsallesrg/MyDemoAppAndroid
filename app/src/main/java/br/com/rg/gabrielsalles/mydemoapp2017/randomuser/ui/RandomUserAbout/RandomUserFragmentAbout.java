@@ -1,6 +1,5 @@
-package br.com.rg.gabrielsalles.mydemoapp2017.randomuser.ui;
+package br.com.rg.gabrielsalles.mydemoapp2017.randomuser.ui.RandomUserAbout;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.method.LinkMovementMethod;
@@ -13,7 +12,7 @@ import br.com.rg.gabrielsalles.mydemoapp2017.R;
 
 public class RandomUserFragmentAbout extends Fragment {
 
-    private OnFragmentInteractionListener mListener;
+//    private OnFragmentInteractionListener mListener;/
 
     public RandomUserFragmentAbout() {
         // Required empty public constructor
@@ -44,16 +43,16 @@ public class RandomUserFragmentAbout extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+//        mListener = null;
     }
 
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-    public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(Uri uri);
-    }
+//    public void onButtonPressed(Uri uri) {
+//        if (mListener != null) {
+//            mListener.onFragmentInteraction(uri);
+//        }
+//    }
+//
+//    public interface OnFragmentInteractionListener {
+//        void onFragmentInteraction(Uri uri);
+//    }
 }

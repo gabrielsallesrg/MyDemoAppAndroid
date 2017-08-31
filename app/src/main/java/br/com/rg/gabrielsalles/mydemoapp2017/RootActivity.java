@@ -11,9 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.ui.RandomUserFragmentAbout;
-import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.ui.RandomUserFragmentFavorites;
-import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.ui.RandomUserHomeFragment;
+import br.com.rg.gabrielsalles.mydemoapp2017.contactinformation.ContactInformationFragment;
+import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.ui.RandomUserAbout.RandomUserFragmentAbout;
+import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.ui.RandomUserFavorites.RandomUserFragmentFavorites;
+import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.ui.RandomUserHome.RandomUserHomeFragment;
 
 import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.Constants.CURRENT_FRAGMENT;
 import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.Constants.CURRENT_TITLE;

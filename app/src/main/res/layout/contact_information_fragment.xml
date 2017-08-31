@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/behind_cardview"
-    tools:context="br.com.rg.gabrielsalles.mydemoapp2017.ContactInformationFragment">
+    tools:context="br.com.rg.gabrielsalles.mydemoapp2017.contactinformation.ContactInformationFragment">
 
 
     <LinearLayout

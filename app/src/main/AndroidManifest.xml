@@ -24,16 +24,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".randomuser.ui.RandomUserDetailActivity"
+        <activity android:name=".randomuser.ui.RandomUserDetail.RandomUserDetailActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".randomuser.ui.RandomUserChoosePhoneDialog"
+            android:name=".randomuser.ui.RandomUserChoosePhoneDialog.RandomUserChoosePhoneDialog"
             android:theme="@style/AppDialog"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".randomuser.ui.RandomUserEditActivity"
+            android:name=".randomuser.ui.RandomUserEdit.RandomUserEditActivity"
             android:theme="@style/AppTheme.CollapsingToolbar"
             android:configChanges="orientation"
             android:screenOrientation="portrait"/>

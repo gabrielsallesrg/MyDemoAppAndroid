@@ -3,7 +3,7 @@
     android:id="@+id/randomuser_home_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="br.com.rg.gabrielsalles.mydemoapp2017.randomuser.ui.RandomUserHomeFragment">
+    tools:context="br.com.rg.gabrielsalles.mydemoapp2017.randomuser.ui.RandomUserHome.RandomUserHomeFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
