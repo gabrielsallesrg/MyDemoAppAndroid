@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import br.com.rg.gabrielsalles.mydemoapp2017.R;
+import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.adapters.RandomUserRecyclerViewAdapter;
 import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.database.RandomUserDatabase;
 import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models.RandomUser;
 import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models.RandomUserGenderOption;
@@ -33,6 +34,7 @@ public class RandomUserHomeFragment extends Fragment implements HomeInterface {
     private SwipeRefreshLayout mNoInternetLayout;
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
+    private RandomUserRecyclerViewAdapter mAdapter;
     private int mRecyclerViewPosition = -1;
     private int mChosenPos = -1;
 
@@ -47,7 +49,6 @@ public class RandomUserHomeFragment extends Fragment implements HomeInterface {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new HomePresenter(this);
-        RandomUserDatabase database = new RandomUserDatabase(getActivity().getApplication());
         presenter.prepareGenders(getString(R.string.ru_gender_other));
     }
 
@@ -60,9 +61,9 @@ public class RandomUserHomeFragment extends Fragment implements HomeInterface {
         mNoInternetLayout = (SwipeRefreshLayout) view.findViewById(R.id.no_internet_layout);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.randomuser_recyclerView);
         mRecyclerView.setHasFixedSize(true);
-        presenter.setAdapter();
+        mAdapter = new RandomUserRecyclerViewAdapter(presenter.getData());
         mRecyclerView.setItemAnimator(new SlideInLeftAnimator());
-        mRecyclerView.setAdapter(presenter.getAdapter());
+        mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setHasFixedSize(false);
         mLayoutManager = new GridLayoutManager(getContext(), calculateNoOfColumns(getContext()));
         mLayoutManager.setAutoMeasureEnabled(false);
@@ -72,10 +73,9 @@ public class RandomUserHomeFragment extends Fragment implements HomeInterface {
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 mRecyclerViewPosition = ((LinearLayoutManager) mLayoutManager).findLastCompletelyVisibleItemPosition();
-                int numItems = presenter.getAdapter().getItemCount();
-                if (mRecyclerViewPosition >= numItems - 1 && !presenter.isIsLoading()) {
-                    //mRecyclerView.setItemAnimator(null);
-                    presenter.endOfTheListRequestMoreData();
+                int numItems = mAdapter.getItemCount();
+                if (mRecyclerViewPosition >= numItems - 1 && !presenter.isLoading()) {
+                    presenter.lastItemRequestData();
                 }
             }
         });
@@ -85,19 +85,19 @@ public class RandomUserHomeFragment extends Fragment implements HomeInterface {
             public void onRefresh() {
                 showRandomUsersView();
                 mNoInternetLayout.setRefreshing(false);
-                presenter.requestMoreData();
+                presenter.requestData();
             }
         });
 
         if (savedInstanceState != null) {
             ArrayList<RandomUser> randomUsers = (ArrayList<RandomUser>)savedInstanceState.getSerializable(RANDOM_USERS_DATAS);
             presenter.setData(randomUsers);
-            presenter.getAdapter().notifyItemInserted(0);
+            mAdapter.notifyItemInserted(0);
             presenter.setPage(savedInstanceState.getInt(CURRENT_PAGE, 0));
-            presenter.setIsLoading(false);
+            presenter.setLoading(false);
         } else {
-            presenter.prepareToFirstRequestMoreData();
-            presenter.requestMoreData();
+            presenter.addLoading();
+            presenter.requestData();
         }
 
         return view;
@@ -112,7 +112,7 @@ public class RandomUserHomeFragment extends Fragment implements HomeInterface {
                     Bundle bundle = data.getExtras();
                     if (data.getBooleanExtra(HAS_NEW_DATA, false)) {
                         RandomUser randomUser = (RandomUser) bundle.getSerializable(RANDOM_USER);
-                        presenter.getAdapter().updatePosition(mChosenPos, randomUser);
+                        mAdapter.updatePosition(mChosenPos, randomUser);
                     }
                 }
                 break;
@@ -147,6 +147,26 @@ public class RandomUserHomeFragment extends Fragment implements HomeInterface {
     public ArrayList<RandomUserGenderOption> getGendersFromDatabase() {
         RandomUserDatabase database = new RandomUserDatabase(getActivity().getApplication());
         return database.getAllGenderOptions();
+    }
+
+    @Override
+    public ArrayList<RandomUser> getCurrentViewData() {
+        return mAdapter.getAllData();
+    }
+
+    @Override
+    public void dataAddedInPosition(int position) {
+        mAdapter.notifyItemInserted(position);
+    }
+
+    @Override
+    public void dataAddedInRange(int positionStart, int itemCount) {
+        mAdapter.notifyItemRangeInserted(positionStart, itemCount);
+    }
+
+    @Override
+    public void dataRemovedFromPosition(int position) {
+        mAdapter.notifyItemRemoved(position);
     }
 
     @Override

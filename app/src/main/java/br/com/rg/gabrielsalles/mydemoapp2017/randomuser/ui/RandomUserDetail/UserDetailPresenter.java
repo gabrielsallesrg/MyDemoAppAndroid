@@ -6,17 +6,17 @@ import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models.RandomUser;
 
 public class UserDetailPresenter {
 
-    UserDetailInterface view;
+    private UserDetailInterface view;
 
     private RandomUser mRandomUser;
-    private boolean mIsFavorite;
+    private boolean mFavorite;
     private boolean mHasNewData = false;
 
     public UserDetailPresenter(UserDetailInterface view) {
         this.view = view;
     }
 
-    private void saveUser() {
+    public void saveUser() {
         view.saveUserInDatabase(mRandomUser);
     }
 
@@ -26,7 +26,7 @@ public class UserDetailPresenter {
 
     public void setRandomUser(RandomUser randomUser) {
         mRandomUser = randomUser;
-        mIsFavorite = mRandomUser.isFavorite();
+        mFavorite = mRandomUser.isFavorite();
     }
 
     public RandomUser getRandomUser() {
@@ -65,17 +65,17 @@ public class UserDetailPresenter {
     }
 
     public void clickFavorite(boolean favorite) {
-        mIsFavorite = favorite;
+        mFavorite = favorite;
         view.updateFavoriteImageAndBinding();
         saveOrDelete();
     }
 
     public void updateFavorite(){
-        mRandomUser.setFavorite(mIsFavorite);
+        mRandomUser.setFavorite(mFavorite);
     }
 
-    public boolean ismIsFavorite() {
-        return mIsFavorite;
+    public boolean isFavorite() {
+        return mFavorite;
     }
 
     public boolean isHasNewData() {

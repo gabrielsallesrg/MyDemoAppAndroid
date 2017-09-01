@@ -72,7 +72,7 @@ public class RandomUserFragmentFavorites extends Fragment implements FavoritesIn
             presenter.setData(data);
             mAdapter.notifyItemInserted(0);
         } else {
-            presenter.prepareToRequestMoreData();
+            presenter.addLoading();
         }
 
         DrawerLayout drawerLayout = ((RootActivity)view.getContext()).getDrawerLayout();
@@ -87,7 +87,7 @@ public class RandomUserFragmentFavorites extends Fragment implements FavoritesIn
                 super.onDrawerClosed(drawerView);
                 if (mDrawerNotLoaded) {
                     if (!mInstanceSaved) {
-                        presenter.requestMoreData();
+                        presenter.requestData();
                     }
                     mDrawerNotLoaded = false;
                 }

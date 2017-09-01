@@ -8,28 +8,26 @@ import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models.RandomUser;
 public class FavoritesPresenter {
 
     private ArrayList<RandomUser> mData = new ArrayList<>();
-
-    FavoritesInterface view;
+    private FavoritesInterface view;
 
     public FavoritesPresenter(FavoritesInterface view) {
         this.view = view;
     }
 
-
-    public void prepareToRequestMoreData() {
+    public void addLoading() {
         mData = view.getCurrentViewData();
         mData.add(null);
         view.dataAddedInPosition(mData.size() - 1);
     }
 
-    public void requestMoreData() {
-        int previousLastPosition = mData.size() - 1;
+    public void requestData() {
+        int loadingPosition = mData.size() - 1;
         ArrayList<RandomUser> data = view.getAllRandomUsersFromDatabase();
 
-        mData.remove(previousLastPosition);
-        view.dataRemovedFromPosition(previousLastPosition);
+        mData.remove(loadingPosition);
+        view.dataRemovedFromPosition(loadingPosition);
         mData.addAll(data);
-        view.dataAddedInRange(previousLastPosition, mData.size());
+        view.dataAddedInRange(loadingPosition, mData.size());
     }
 
     public ArrayList<RandomUser> getData() {

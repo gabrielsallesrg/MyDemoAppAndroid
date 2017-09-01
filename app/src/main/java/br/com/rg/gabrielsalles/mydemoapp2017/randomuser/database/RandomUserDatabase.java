@@ -21,23 +21,23 @@ import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models.RandomUserPicture
 
 public class RandomUserDatabase {
 
-    private RandomUserPictureDao mRandomUserPictureDao;
-    private RandomUserNameDao mRandomUserNameDao;
-    private RandomUserLoginDao mRandomUserLoginDao;
-    private RandomUserLocationDao mRandomUserLocationDao;
-    private RandomUserDataIdDao mRandomUserDataIdDao;
-    private RandomUserDao mRandomUserDao;
+    private RandomUserPictureDao      mRandomUserPictureDao;
+    private RandomUserNameDao         mRandomUserNameDao;
+    private RandomUserLoginDao        mRandomUserLoginDao;
+    private RandomUserLocationDao     mRandomUserLocationDao;
+    private RandomUserDataIdDao       mRandomUserDataIdDao;
+    private RandomUserDao             mRandomUserDao;
     private RandomUserGenderOptionDao mRandomUserGenderOptionDao;
 
     public RandomUserDatabase(Application application) {
         final DaoSession daoSession = ((App) application).getDaoSession();
 
-        mRandomUserPictureDao = daoSession.getRandomUserPictureDao();
-        mRandomUserNameDao = daoSession.getRandomUserNameDao();
-        mRandomUserLoginDao = daoSession.getRandomUserLoginDao();
-        mRandomUserLocationDao = daoSession.getRandomUserLocationDao();
-        mRandomUserDataIdDao = daoSession.getRandomUserDataIdDao();
-        mRandomUserDao = daoSession.getRandomUserDao();
+        mRandomUserPictureDao      = daoSession.getRandomUserPictureDao();
+        mRandomUserNameDao         = daoSession.getRandomUserNameDao();
+        mRandomUserLoginDao        = daoSession.getRandomUserLoginDao();
+        mRandomUserLocationDao     = daoSession.getRandomUserLocationDao();
+        mRandomUserDataIdDao       = daoSession.getRandomUserDataIdDao();
+        mRandomUserDao             = daoSession.getRandomUserDao();
         mRandomUserGenderOptionDao = daoSession.getRandomUserGenderOptionDao();
     }
 
@@ -46,11 +46,11 @@ public class RandomUserDatabase {
 
         for (RandomUser user: data) {
             WhereCondition whereCondition = new WhereCondition.StringCondition("_id = " + user.getRu_id());
-            user.setPicture(mRandomUserPictureDao.queryBuilder().where(whereCondition).unique());
-            user.setName(mRandomUserNameDao.queryBuilder().where(whereCondition).unique());
-            user.setLogin(mRandomUserLoginDao.queryBuilder().where(whereCondition).unique());
-            user.setLocation(mRandomUserLocationDao.queryBuilder().where(whereCondition).unique());
-            user.setDataId(mRandomUserDataIdDao.queryBuilder().where(whereCondition).unique());
+            user.setPicture(  mRandomUserPictureDao.  queryBuilder().where(whereCondition).unique());
+            user.setName(     mRandomUserNameDao.     queryBuilder().where(whereCondition).unique());
+            user.setLogin(    mRandomUserLoginDao.    queryBuilder().where(whereCondition).unique());
+            user.setLocation( mRandomUserLocationDao. queryBuilder().where(whereCondition).unique());
+            user.setDataId(   mRandomUserDataIdDao.   queryBuilder().where(whereCondition).unique());
         }
         return data;
     }
@@ -77,21 +77,21 @@ public class RandomUserDatabase {
     }
 
     public void saveUser(RandomUser randomUser) {
-        mRandomUserPictureDao.insertOrReplace(randomUser.getPicture());
-        mRandomUserNameDao.insertOrReplace(randomUser.getName());
-        mRandomUserLoginDao.insertOrReplace(randomUser.getLogin());
-        mRandomUserLocationDao.insertOrReplace(randomUser.getLocation());
-        mRandomUserDataIdDao.insertOrReplace(randomUser.getDataId());
-        mRandomUserDao.insertOrReplace(randomUser);
+        mRandomUserPictureDao.  insertOrReplace(randomUser.getPicture());
+        mRandomUserNameDao.     insertOrReplace(randomUser.getName());
+        mRandomUserLoginDao.    insertOrReplace(randomUser.getLogin());
+        mRandomUserLocationDao. insertOrReplace(randomUser.getLocation());
+        mRandomUserDataIdDao.   insertOrReplace(randomUser.getDataId());
+        mRandomUserDao.         insertOrReplace(randomUser);
     }
 
     public void deleteUser(RandomUser randomUser) {
-        mRandomUserPictureDao.delete(randomUser.getPicture());
-        mRandomUserNameDao.delete(randomUser.getName());
-        mRandomUserLoginDao.delete(randomUser.getLogin());
-        mRandomUserLocationDao.delete(randomUser.getLocation());
-        mRandomUserDataIdDao.delete(randomUser.getDataId());
-        mRandomUserDao.delete(randomUser);
+        mRandomUserPictureDao.  delete(randomUser.getPicture());
+        mRandomUserNameDao.     delete(randomUser.getName());
+        mRandomUserLoginDao.    delete(randomUser.getLogin());
+        mRandomUserLocationDao. delete(randomUser.getLocation());
+        mRandomUserDataIdDao.   delete(randomUser.getDataId());
+        mRandomUserDao.         delete(randomUser);
         randomUser.deleteId();
     }
 }

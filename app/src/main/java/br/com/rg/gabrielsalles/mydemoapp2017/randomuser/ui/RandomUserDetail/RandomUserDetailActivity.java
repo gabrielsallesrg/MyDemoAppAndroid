@@ -136,8 +136,8 @@ public class RandomUserDetailActivity extends AppCompatActivity implements UserD
 
     @Override
     public void updateFavoriteImageAndBinding() {
-        mFavoriteImageButton.setImageResource((presenter.ismIsFavorite()) ? (android.R.drawable.star_big_on) : (R.drawable.ic_star_outline_grey600_36dp));
-        binding.getRandomuser().setFavorite(presenter.ismIsFavorite());
+        mFavoriteImageButton.setImageResource((presenter.isFavorite()) ? (android.R.drawable.star_big_on) : (R.drawable.ic_star_outline_grey600_36dp));
+        binding.getRandomuser().setFavorite(presenter.isFavorite());
     }
 
     @Override
@@ -192,7 +192,7 @@ public class RandomUserDetailActivity extends AppCompatActivity implements UserD
         bundle.putSerializable(RANDOM_USER, presenter.getRandomUser());
         resultIntent.putExtras(bundle);
         resultIntent.putExtra(HAS_NEW_DATA, presenter.isHasNewData());
-        resultIntent.putExtra(IS_FAVORITED, presenter.ismIsFavorite());
+        resultIntent.putExtra(IS_FAVORITED, presenter.isFavorite());
         setResult(RESULT_OK, resultIntent);
     }
 }
