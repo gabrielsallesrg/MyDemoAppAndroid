@@ -13,9 +13,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * Created by gabriel on 31/08/17.
- */
+
 
 public class HomePresenter {
 

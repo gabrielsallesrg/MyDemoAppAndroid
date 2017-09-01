@@ -8,9 +8,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import br.com.rg.gabrielsalles.mydemoapp2017.R;
 
-/**
- * Created by gabriel on 18/04/17.
- */
 
 public final class RandomUserImageDataBinder {
 

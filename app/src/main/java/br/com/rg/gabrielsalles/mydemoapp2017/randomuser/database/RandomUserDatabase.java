@@ -18,9 +18,6 @@ import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models.RandomUserLoginDa
 import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models.RandomUserNameDao;
 import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models.RandomUserPictureDao;
 
-/**
- * Created by gabriel on 01/09/17.
- */
 
 public class RandomUserDatabase {
 
@@ -31,8 +28,6 @@ public class RandomUserDatabase {
     private RandomUserDataIdDao mRandomUserDataIdDao;
     private RandomUserDao mRandomUserDao;
     private RandomUserGenderOptionDao mRandomUserGenderOptionDao;
-
-    private ArrayList<RandomUser> mData = new ArrayList<>();
 
     public RandomUserDatabase(Application application) {
         final DaoSession daoSession = ((App) application).getDaoSession();
@@ -67,11 +62,9 @@ public class RandomUserDatabase {
     }
 
     public ArrayList<RandomUserGenderOption> getAllGenderOptions() {
-        ArrayList<RandomUserGenderOption> genderOptions = (ArrayList<RandomUserGenderOption>)
-                mRandomUserGenderOptionDao.queryBuilder()
+        return  (ArrayList<RandomUserGenderOption>) mRandomUserGenderOptionDao.queryBuilder()
                         .orderAsc(RandomUserGenderOptionDao.Properties.Gender)
                         .list();
-        return genderOptions;
     }
 
     public ArrayList<String> getAllGenderOptionsInString() {

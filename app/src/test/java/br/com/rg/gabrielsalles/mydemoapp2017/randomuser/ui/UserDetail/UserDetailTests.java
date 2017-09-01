@@ -9,9 +9,7 @@ import org.mockito.junit.MockitoRule;
 import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.ui.RandomUserDetail.UserDetailInterface;
 import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.ui.RandomUserDetail.UserDetailPresenter;
 
-/**
- * Created by gabriel on 31/08/17.
- */
+
 
 public class UserDetailTests {
 

@@ -1,8 +1,6 @@
 package br.com.rg.gabrielsalles.mydemoapp2017.randomuser.ui.RandomUserChoosePhoneDialog;
 
-/**
- * Created by gabriel on 31/08/17.
- */
+
 
 public class ChoosePhonePresenter {
 

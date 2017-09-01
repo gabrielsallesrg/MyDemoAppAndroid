@@ -8,9 +8,6 @@ import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models.DaoMaster;
 import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models.DaoMaster.DevOpenHelper;
 import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models.DaoSession;
 
-/**
- * Created by gabriel on 23/04/17.
- */
 
 public class App extends Application {
 

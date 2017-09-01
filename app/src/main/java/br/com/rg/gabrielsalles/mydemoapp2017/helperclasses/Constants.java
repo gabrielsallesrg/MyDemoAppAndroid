@@ -1,8 +1,6 @@
 package br.com.rg.gabrielsalles.mydemoapp2017.helperclasses;
 
-/**
- * Created by gabriel.guedes on 27/04/17.
- */
+
 
 public class Constants {
 

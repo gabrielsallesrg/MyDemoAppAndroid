@@ -15,9 +15,7 @@ import org.greenrobot.greendao.annotation.Unique;
 
 import java.io.Serializable;
 
-/**
- * Created by gabriel on 23/04/17.
- */
+
 
 @Entity
 public class RandomUser implements Serializable {

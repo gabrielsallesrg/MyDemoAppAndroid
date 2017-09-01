@@ -5,9 +5,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
-/**
- * Created by gabriel on 16/04/17.
- */
+
 
 public interface RandomUserApiInterface {
 

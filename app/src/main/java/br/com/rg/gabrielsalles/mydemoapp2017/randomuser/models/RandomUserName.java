@@ -10,11 +10,8 @@ import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Keep;
 
 import java.io.Serializable;
-import org.greenrobot.greendao.annotation.Generated;
 
-/**
- * Created by gabriel on 23/04/17.
- */
+
 
 @Entity
 public class RandomUserName implements Serializable {

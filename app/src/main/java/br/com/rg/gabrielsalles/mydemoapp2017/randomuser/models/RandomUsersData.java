@@ -12,9 +12,7 @@ import org.greenrobot.greendao.annotation.ToOne;
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * Created by gabriel on 23/04/17.
- */
+
 
 @Entity
 public class RandomUsersData implements Serializable {

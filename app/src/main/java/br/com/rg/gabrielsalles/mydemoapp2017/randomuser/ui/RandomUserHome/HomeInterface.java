@@ -4,9 +4,7 @@ import java.util.ArrayList;
 
 import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models.RandomUserGenderOption;
 
-/**
- * Created by gabriel on 31/08/17.
- */
+
 
 public interface HomeInterface {
 

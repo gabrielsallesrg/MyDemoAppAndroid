@@ -5,9 +5,7 @@ import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Unique;
 import org.greenrobot.greendao.annotation.Generated;
 
-/**
- * Created by gabriel on 13/05/17.
- */
+
 
 @Entity
 public class RandomUserGenderOption {
