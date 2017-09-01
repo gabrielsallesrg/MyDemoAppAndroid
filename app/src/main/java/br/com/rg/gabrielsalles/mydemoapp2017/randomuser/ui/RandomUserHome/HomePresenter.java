@@ -1,18 +1,13 @@
 package br.com.rg.gabrielsalles.mydemoapp2017.randomuser.ui.RandomUserHome;
 
-import android.app.Application;
-import android.util.Log;
 
 import java.util.ArrayList;
 
-import br.com.rg.gabrielsalles.mydemoapp2017.App;
 import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.API.RandomUserApiClient;
 import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.API.RandomUserApiInterface;
 import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.adapters.RandomUserRecyclerViewAdapter;
-import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models.DaoSession;
 import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models.RandomUser;
 import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models.RandomUserGenderOption;
-import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models.RandomUserGenderOptionDao;
 import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models.RandomUsersData;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,7 +20,6 @@ import retrofit2.Response;
 public class HomePresenter {
 
     HomeInterface view;
-    private RandomUserGenderOptionDao mRandomUserGenderOptionDao;
     private ArrayList<RandomUserGenderOption> mGenderOptions;
     private RandomUserApiInterface mApiInterface;
     private RandomUserRecyclerViewAdapter mAdapter;
@@ -39,13 +33,8 @@ public class HomePresenter {
         mApiInterface = RandomUserApiClient.getClient().create(RandomUserApiInterface.class);
     }
 
-    public void prepareGenders(Application application, String other){
-        final DaoSession daoSession = ((App) application).getDaoSession();
-        mRandomUserGenderOptionDao = daoSession.getRandomUserGenderOptionDao();
-        mGenderOptions = (ArrayList<RandomUserGenderOption>)
-                mRandomUserGenderOptionDao.queryBuilder()
-                        .orderAsc(RandomUserGenderOptionDao.Properties.Gender)
-                        .list();
+    public void prepareGenders(String other){
+        mGenderOptions = view.getGendersFromDatabase();
         if (!contains(mGenderOptions, "--"))
             mGenderOptions.add(new RandomUserGenderOption(null, "--"));
         if (!contains(mGenderOptions, other))
@@ -66,12 +55,6 @@ public class HomePresenter {
                 return true;
         }
         return false;
-    }
-
-    private void saveGenders() {
-        for (RandomUserGenderOption genderOption: mGenderOptions) {
-            mRandomUserGenderOptionDao.insertOrReplace(genderOption);
-        }
     }
 
     public boolean isIsLoading() {
@@ -116,8 +99,7 @@ public class HomePresenter {
         call.enqueue(new Callback() {
             @Override
             public void onResponse(Call call, Response response) {
-                Log.d("RESPONSE CODE ", response.code() + "");
-
+//                Log.d("RESPONSE CODE ", response.code() + "");
                 RandomUsersData randomUsersData = (RandomUsersData) response.body();
                 ArrayList<RandomUser> data = (ArrayList<RandomUser>) randomUsersData.getResults();
                 for (RandomUser randomUser:data) {
@@ -132,15 +114,15 @@ public class HomePresenter {
                 mData.add(null);
                 mAdapter.notifyItemRangeInserted(previousLastPosition, mData.size());
                 mIsLoading = false;
-                saveGenders();
+                view.saveGendersInDatabase(mGenderOptions);
                 mConnectionFail = 0;
             }
 
             @Override
             public void onFailure(Call call, Throwable t) {
-                Log.e("CONNECTION ERROR", t.getMessage());
-                Log.e("CONNECTION ERROR", t.getLocalizedMessage());
-                Log.e("CONNECTION ERROR", t.toString());
+//                Log.e("CONNECTION ERROR", t.getMessage());
+//                Log.e("CONNECTION ERROR", t.getLocalizedMessage());
+//                Log.e("CONNECTION ERROR", t.toString());
                 mPage--;
                 mConnectionFail++;
                 if (mConnectionFail >= 3) {

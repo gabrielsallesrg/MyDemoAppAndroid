@@ -1,12 +1,14 @@
 package br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models;
 
 import android.os.Parcel;
-import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Keep;
+
+import java.io.Serializable;
 import org.greenrobot.greendao.annotation.Generated;
 
 /**
@@ -14,7 +16,7 @@ import org.greenrobot.greendao.annotation.Generated;
  */
 
 @Entity
-public class RandomUserInfo implements Parcelable {
+public class RandomUserInfo implements Serializable {
 
     @SerializedName("seed")
     @Expose
@@ -28,30 +30,29 @@ public class RandomUserInfo implements Parcelable {
     @SerializedName("version")
     @Expose
     private String version;
-    public static final Creator<RandomUserInfo> CREATOR = new Creator<RandomUserInfo>() {
-        public RandomUserInfo createFromParcel(Parcel in) {
-            RandomUserInfo instance = new RandomUserInfo();
-            instance.seed = ((String) in.readValue((String.class.getClassLoader())));
-            instance.results = ((Integer) in.readValue((Integer.class.getClassLoader())));
-            instance.page = ((Integer) in.readValue((Integer.class.getClassLoader())));
-            instance.version = ((String) in.readValue((String.class.getClassLoader())));
-            return instance;
-        }
+    private final static long serialVersionUID = 2850406328019752324L;
 
-        public RandomUserInfo[] newArray(int size) {
-            return (new RandomUserInfo[size]);
-        }
-    };
-
-    @Generated(hash = 580202255)
+    /**
+     *
+     * @param results
+     * @param page
+     * @param seed
+     * @param version
+     */
+    @Keep
     public RandomUserInfo(String seed, int results, int page, String version) {
+        super();
         this.seed = seed;
         this.results = results;
         this.page = page;
         this.version = version;
     }
 
-    @Generated(hash = 2116153070)
+    /**
+     * No args constructor for use in serialization
+     *
+     */
+    @Keep
     public RandomUserInfo() {
     }
 

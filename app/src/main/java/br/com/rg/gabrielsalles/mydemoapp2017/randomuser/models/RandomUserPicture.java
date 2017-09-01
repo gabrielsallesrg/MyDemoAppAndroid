@@ -1,13 +1,15 @@
 package br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models;
 
 import android.os.Parcel;
-import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Keep;
+
+import java.io.Serializable;
 import org.greenrobot.greendao.annotation.Generated;
 
 /**
@@ -15,7 +17,7 @@ import org.greenrobot.greendao.annotation.Generated;
  */
 
 @Entity
-public class RandomUserPicture implements Parcelable {
+public class RandomUserPicture implements Serializable {
 
     @Id
     private Long id;
@@ -28,32 +30,28 @@ public class RandomUserPicture implements Parcelable {
     @SerializedName("thumbnail")
     @Expose
     private String thumbnail;
+    private final static long serialVersionUID = 3434702788942718684L;
 
-    public static final Creator<RandomUserPicture> CREATOR = new Creator<RandomUserPicture>() {
-
-        public RandomUserPicture createFromParcel(Parcel in) {
-            RandomUserPicture instance = new RandomUserPicture();
-            instance.large = ((String) in.readValue((String.class.getClassLoader())));
-            instance.medium = ((String) in.readValue((String.class.getClassLoader())));
-            instance.thumbnail = ((String) in.readValue((String.class.getClassLoader())));
-            instance.id = ((Long) in.readValue((Long.class.getClassLoader())));
-            return instance;
-        }
-
-        public RandomUserPicture[] newArray(int size) {
-            return (new RandomUserPicture[size]);
-        }
-    };
-
-    @Generated(hash = 293845696)
+    /**
+     *
+     * @param thumbnail
+     * @param medium
+     * @param large
+     */
+    @Keep
     public RandomUserPicture(Long id, String large, String medium, String thumbnail) {
+        super();
         this.id = id;
         this.large = large;
         this.medium = medium;
         this.thumbnail = thumbnail;
     }
 
-    @Generated(hash = 156617564)
+    /**
+     * No args constructor for use in serialization
+     *
+     */
+    @Keep
     public RandomUserPicture() {
     }
 

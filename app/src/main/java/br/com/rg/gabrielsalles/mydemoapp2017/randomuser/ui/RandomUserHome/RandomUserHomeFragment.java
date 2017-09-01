@@ -14,9 +14,10 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import br.com.rg.gabrielsalles.mydemoapp2017.App;
 import br.com.rg.gabrielsalles.mydemoapp2017.R;
+import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.database.RandomUserDatabase;
 import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models.RandomUser;
+import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models.RandomUserGenderOption;
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 
 import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.Constants.CURRENT_PAGE;
@@ -46,7 +47,8 @@ public class RandomUserHomeFragment extends Fragment implements HomeInterface {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new HomePresenter(this);
-        presenter.prepareGenders((App)getActivity().getApplication(), getString(R.string.ru_gender_other));
+        RandomUserDatabase database = new RandomUserDatabase(getActivity().getApplication());
+        presenter.prepareGenders(getString(R.string.ru_gender_other));
     }
 
     @Override
@@ -88,7 +90,7 @@ public class RandomUserHomeFragment extends Fragment implements HomeInterface {
         });
 
         if (savedInstanceState != null) {
-            ArrayList<RandomUser> randomUsers = savedInstanceState.getParcelableArrayList(RANDOM_USERS_DATAS);
+            ArrayList<RandomUser> randomUsers = (ArrayList<RandomUser>)savedInstanceState.getSerializable(RANDOM_USERS_DATAS);
             presenter.setData(randomUsers);
             presenter.getAdapter().notifyItemInserted(0);
             presenter.setPage(savedInstanceState.getInt(CURRENT_PAGE, 0));
@@ -109,7 +111,7 @@ public class RandomUserHomeFragment extends Fragment implements HomeInterface {
                 if (resultCode == Activity.RESULT_OK && mChosenPos >= 0) {
                     Bundle bundle = data.getExtras();
                     if (data.getBooleanExtra(HAS_NEW_DATA, false)) {
-                        RandomUser randomUser = bundle.getParcelable(RANDOM_USER);
+                        RandomUser randomUser = (RandomUser) bundle.getSerializable(RANDOM_USER);
                         presenter.getAdapter().updatePosition(mChosenPos, randomUser);
                     }
                 }
@@ -136,8 +138,20 @@ public class RandomUserHomeFragment extends Fragment implements HomeInterface {
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
-        savedInstanceState.putParcelableArrayList(RANDOM_USERS_DATAS, presenter.getData());
+        savedInstanceState.putSerializable(RANDOM_USERS_DATAS, presenter.getData());
         savedInstanceState.putInt(CURRENT_PAGE, presenter.getPage());
         super.onSaveInstanceState(savedInstanceState);
+    }
+
+    @Override
+    public ArrayList<RandomUserGenderOption> getGendersFromDatabase() {
+        RandomUserDatabase database = new RandomUserDatabase(getActivity().getApplication());
+        return database.getAllGenderOptions();
+    }
+
+    @Override
+    public void saveGendersInDatabase(ArrayList<RandomUserGenderOption> genderOptions) {
+        RandomUserDatabase database = new RandomUserDatabase(getActivity().getApplication());
+        database.saveGenders(genderOptions);
     }
 }

@@ -1,13 +1,15 @@
 package br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models;
 
 import android.os.Parcel;
-import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Keep;
+
+import java.io.Serializable;
 import org.greenrobot.greendao.annotation.Generated;
 
 /**
@@ -15,7 +17,7 @@ import org.greenrobot.greendao.annotation.Generated;
  */
 
 @Entity
-public class RandomUserLogin implements Parcelable {
+public class RandomUserLogin implements Serializable {
 
     @Id
     private Long id;
@@ -37,28 +39,22 @@ public class RandomUserLogin implements Parcelable {
     @SerializedName("sha256")
     @Expose
     private String sha256;
-    public static final Creator<RandomUserLogin> CREATOR = new Creator<RandomUserLogin>() {
+    private final static long serialVersionUID = -128778085402300862L;
 
-        public RandomUserLogin createFromParcel(Parcel in) {
-            RandomUserLogin instance = new RandomUserLogin();
-            instance.username = ((String) in.readValue((String.class.getClassLoader())));
-            instance.password = ((String) in.readValue((String.class.getClassLoader())));
-            instance.salt = ((String) in.readValue((String.class.getClassLoader())));
-            instance.md5 = ((String) in.readValue((String.class.getClassLoader())));
-            instance.sha1 = ((String) in.readValue((String.class.getClassLoader())));
-            instance.sha256 = ((String) in.readValue((String.class.getClassLoader())));
-            instance.id = ((Long) in.readValue((Long.class.getClassLoader())));
-            return instance;
-        }
 
-        public RandomUserLogin[] newArray(int size) {
-            return (new RandomUserLogin[size]);
-        }
-    };
-
-    @Generated(hash = 1916180083)
+    /**
+     *
+     * @param username
+     * @param sha256
+     * @param md5
+     * @param sha1
+     * @param password
+     * @param salt
+     */
+    @Keep
     public RandomUserLogin(Long id, String username, String password, String salt, String md5,
             String sha1, String sha256) {
+        super();
         this.id = id;
         this.username = username;
         this.password = password;
@@ -68,7 +64,11 @@ public class RandomUserLogin implements Parcelable {
         this.sha256 = sha256;
     }
 
-    @Generated(hash = 801948537)
+    /**
+     * No args constructor for use in serialization
+     *
+     */
+    @Keep
     public RandomUserLogin() {
     }
 

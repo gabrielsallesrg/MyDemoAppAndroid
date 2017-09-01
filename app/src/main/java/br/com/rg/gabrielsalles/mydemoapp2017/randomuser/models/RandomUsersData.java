@@ -1,7 +1,6 @@
 package br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models;
 
 import android.os.Parcel;
-import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -10,6 +9,7 @@ import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.ToMany;
 import org.greenrobot.greendao.annotation.ToOne;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -17,7 +17,7 @@ import java.util.List;
  */
 
 @Entity
-public class RandomUsersData implements Parcelable {
+public class RandomUsersData implements Serializable {
 
     @SerializedName("results")
     @Expose
@@ -28,22 +28,25 @@ public class RandomUsersData implements Parcelable {
     @Expose
     @ToOne(joinProperty = "randomUserInfo")
     private RandomUserInfo info;
-    public static final Creator<RandomUsersData> CREATOR = new Creator<RandomUsersData>() {
-        @Override
-        public RandomUsersData createFromParcel(Parcel in) {
-            RandomUsersData instance = new RandomUsersData();
-            in.readList(instance.results, (RandomUser.class.getClassLoader()));
-            instance.info = ((RandomUserInfo) in.readValue((RandomUserInfo.class.getClassLoader())));
-            return instance;
-        }
 
-        @Override
-        public RandomUsersData[] newArray(int size) {
-            return new RandomUsersData[size];
-        }
-    };
+    private final static long serialVersionUID = 14539319122754602L;
 
+    /**
+     * No args constructor for use in serialization
+     *
+     */
     public RandomUsersData() {
+    }
+
+    /**
+     *
+     * @param results
+     * @param info
+     */
+    public RandomUsersData(List<RandomUser> results, RandomUserInfo info) {
+        super();
+        this.results = results;
+        this.info = info;
     }
 
     public List<RandomUser> getResults() {

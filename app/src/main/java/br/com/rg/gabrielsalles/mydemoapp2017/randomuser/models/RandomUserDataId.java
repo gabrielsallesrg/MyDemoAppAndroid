@@ -1,21 +1,23 @@
 package br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models;
 
 import android.os.Parcel;
-import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Keep;
+
+import java.io.Serializable;
+import org.greenrobot.greendao.annotation.Generated;
 
 /**
  * Created by gabriel on 23/04/17.
  */
 
 @Entity
-public class RandomUserDataId implements Parcelable {
+public class RandomUserDataId implements Serializable {
 
     @Id
     private Long id;
@@ -25,30 +27,26 @@ public class RandomUserDataId implements Parcelable {
     @SerializedName("value")
     @Expose
     private String value;
-    public static final Creator<RandomUserDataId> CREATOR = new Creator<RandomUserDataId>() {
-        public RandomUserDataId createFromParcel(Parcel in) {
-            RandomUserDataId instance = new RandomUserDataId();
-            instance.name = ((String) in.readValue((String.class.getClassLoader())));
-            instance.value = ((String) in.readValue((String.class.getClassLoader())));
-            instance.id = ((Long) in.readValue((Long.class.getClassLoader())));
-            return instance;
-        }
+    private final static long serialVersionUID = 6620271180783842737L;
 
-        public RandomUserDataId[] newArray(int size) {
-            return (new RandomUserDataId[size]);
-        }
-
-    };
-
-
-    @Generated(hash = 184172047)
+    /**
+     *
+     * @param name
+     * @param value
+     */
+    @Keep
     public RandomUserDataId(Long id, String name, String value) {
+        super();
         this.id = id;
         this.name = name;
         this.value = value;
     }
 
-    @Generated(hash = 601754519)
+    /**
+     * No args constructor for use in serialization
+     *
+     */
+    @Keep
     public RandomUserDataId() {
     }
 

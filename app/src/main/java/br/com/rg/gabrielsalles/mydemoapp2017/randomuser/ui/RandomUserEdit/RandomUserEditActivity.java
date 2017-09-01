@@ -28,6 +28,7 @@ import java.util.Date;
 import br.com.rg.gabrielsalles.mydemoapp2017.R;
 import br.com.rg.gabrielsalles.mydemoapp2017.databinding.RandomUserActivityEditBinding;
 import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.RandomUserImageDataBinder;
+import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.database.RandomUserDatabase;
 import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models.RandomUser;
 
 import static br.com.rg.gabrielsalles.mydemoapp2017.helperclasses.Constants.HAS_NEW_DATA;
@@ -48,9 +49,10 @@ public class RandomUserEditActivity extends AppCompatActivity implements UserEdi
         mBinding = DataBindingUtil.setContentView(this, R.layout.random_user_activity_edit);
         final Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        presenter.setRandomUser((RandomUser)bundle.getParcelable(RANDOM_USER));
+        presenter.setRandomUser((RandomUser)bundle.getSerializable(RANDOM_USER));
         mBinding.setRandomuser(presenter.getRandomUser());
-        ArrayAdapter<String> genderAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, presenter.getGenderOptions(getApplication()));
+        RandomUserDatabase database = new RandomUserDatabase(getApplication());
+        ArrayAdapter<String> genderAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, database.getAllGenderOptionsInString());
         mBinding.genderSpinner.setAdapter(genderAdapter);
         int currentGenderPosition = genderAdapter.getPosition(presenter.getRandomUser().getGender());
         mBinding.genderSpinner.setSelection(currentGenderPosition);
@@ -146,7 +148,7 @@ public class RandomUserEditActivity extends AppCompatActivity implements UserEdi
         if (changesWereMade()) {
             updateRandomUser();
             Bundle bundle = new Bundle();
-            bundle.putParcelable(RANDOM_USER, presenter.getRandomUser());
+            bundle.putSerializable(RANDOM_USER, presenter.getRandomUser());
             resultIntent.putExtras(bundle);
             resultIntent.putExtra(HAS_NEW_DATA, true);
         } else {

@@ -1,13 +1,15 @@
 package br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models;
 
 import android.os.Parcel;
-import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Keep;
+
+import java.io.Serializable;
 import org.greenrobot.greendao.annotation.Generated;
 
 /**
@@ -15,7 +17,7 @@ import org.greenrobot.greendao.annotation.Generated;
  */
 
 @Entity
-public class RandomUserName implements Parcelable {
+public class RandomUserName implements Serializable {
 
     @Id
     private Long id;
@@ -32,30 +34,29 @@ public class RandomUserName implements Parcelable {
     @Expose
     private String last;
 
-    public static final Creator<RandomUserName> CREATOR = new Creator<RandomUserName>() {
-        public RandomUserName createFromParcel(Parcel in) {
-            RandomUserName instance = new RandomUserName();
-            instance.title = ((String) in.readValue((String.class.getClassLoader())));
-            instance.first = ((String) in.readValue((String.class.getClassLoader())));
-            instance.last = ((String) in.readValue((String.class.getClassLoader())));
-            instance.id = ((Long) in.readValue((Long.class.getClassLoader())));
-            return instance;
-        }
+    private final static long serialVersionUID = -3671783955901145710L;
 
-        public RandomUserName[] newArray(int size) {
-            return (new RandomUserName[size]);
-        }
-    };
 
-    @Generated(hash = 1675400590)
+    /**
+     *
+     * @param title
+     * @param last
+     * @param first
+     */
+    @Keep
     public RandomUserName(Long id, String title, String first, String last) {
+        super();
         this.id = id;
         this.title = title;
         this.first = first;
         this.last = last;
     }
 
-    @Generated(hash = 1885187841)
+    /**
+     * No args constructor for use in serialization
+     *
+     */
+    @Keep
     public RandomUserName() {
     }
 

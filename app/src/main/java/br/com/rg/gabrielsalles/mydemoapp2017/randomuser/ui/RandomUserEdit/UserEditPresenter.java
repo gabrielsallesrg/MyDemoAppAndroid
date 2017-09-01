@@ -1,14 +1,6 @@
 package br.com.rg.gabrielsalles.mydemoapp2017.randomuser.ui.RandomUserEdit;
 
-import android.app.Application;
-
-import java.util.ArrayList;
-
-import br.com.rg.gabrielsalles.mydemoapp2017.App;
-import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models.DaoSession;
 import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models.RandomUser;
-import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models.RandomUserGenderOption;
-import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models.RandomUserGenderOptionDao;
 
 /**
  * Created by gabriel on 31/08/17.
@@ -73,20 +65,6 @@ public class UserEditPresenter {
         mRandomUser.setNat(nationality);
         if (mPictureChanged)
             mRandomUser.getPicture().setLarge(mCurrentPhotoPath);
-    }
-
-    public ArrayList<String> getGenderOptions(Application application) {
-        final DaoSession daoSession = ((App) application).getDaoSession();
-        final RandomUserGenderOptionDao randomUserGenderOptionDao = daoSession.getRandomUserGenderOptionDao();
-        ArrayList<RandomUserGenderOption> genderOptions = (ArrayList<RandomUserGenderOption>)
-                randomUserGenderOptionDao.queryBuilder()
-                        .orderAsc(RandomUserGenderOptionDao.Properties.Gender)
-                        .list();
-        ArrayList<String> genderOptionsStr = new ArrayList<>();
-        for (RandomUserGenderOption genderOption: genderOptions) {
-            genderOptionsStr.add(genderOption.getGender());
-        }
-        return genderOptionsStr;
     }
 
     public void setPictureChanged(boolean pictureChanged) {

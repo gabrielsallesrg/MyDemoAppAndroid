@@ -1,13 +1,15 @@
 package br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models;
 
 import android.os.Parcel;
-import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Keep;
+
+import java.io.Serializable;
 import org.greenrobot.greendao.annotation.Generated;
 
 /**
@@ -15,7 +17,7 @@ import org.greenrobot.greendao.annotation.Generated;
  */
 
 @Entity
-public class RandomUserLocation implements Parcelable {
+public class RandomUserLocation implements Serializable {
 
     @Id
     private Long id;
@@ -31,24 +33,18 @@ public class RandomUserLocation implements Parcelable {
     @SerializedName("postcode")
     @Expose
     private String postcode;
-    public static final Creator<RandomUserLocation> CREATOR = new Creator<RandomUserLocation>() {
-        public RandomUserLocation createFromParcel(Parcel in) {
-            RandomUserLocation instance = new RandomUserLocation();
-            instance.street = ((String) in.readValue((String.class.getClassLoader())));
-            instance.city = ((String) in.readValue((String.class.getClassLoader())));
-            instance.state = ((String) in.readValue((String.class.getClassLoader())));
-            instance.postcode = ((String) in.readValue((String.class.getClassLoader())));
-            instance.id = ((Long) in.readValue((Long.class.getClassLoader())));
-            return instance;
-        }
+    private final static long serialVersionUID = 1442976029917924539L;
 
-        public RandomUserLocation[] newArray(int size) {
-            return (new RandomUserLocation[size]);
-        }
-    };
-
-    @Generated(hash = 1279659819)
+    /**
+     *
+     * @param street
+     * @param state
+     * @param postcode
+     * @param city
+     */
+    @Keep
     public RandomUserLocation(Long id, String street, String city, String state, String postcode) {
+        super();
         this.id = id;
         this.street = street;
         this.city = city;
@@ -56,7 +52,11 @@ public class RandomUserLocation implements Parcelable {
         this.postcode = postcode;
     }
 
-    @Generated(hash = 1429131324)
+    /**
+     * No args constructor for use in serialization
+     *
+     */
+    @Keep
     public RandomUserLocation() {
     }
 

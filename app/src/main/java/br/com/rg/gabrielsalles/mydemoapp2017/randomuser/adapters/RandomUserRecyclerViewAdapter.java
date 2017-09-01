@@ -104,7 +104,7 @@ public class RandomUserRecyclerViewAdapter extends RecyclerView.Adapter<Recycler
 
                     Intent intent = new Intent(context, RandomUserDetailActivity.class);
                     Bundle bundle = new Bundle();
-                    bundle.putParcelable(RANDOM_USER, mBinding.getRandomuser());
+                    bundle.putSerializable(RANDOM_USER, mBinding.getRandomuser());
                     intent.putExtras(bundle);
 
                     Fragment fragment = ((RootActivity)context).getCurrentFragment();

@@ -14,9 +14,10 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import br.com.rg.gabrielsalles.mydemoapp2017.App;
 import br.com.rg.gabrielsalles.mydemoapp2017.R;
 import br.com.rg.gabrielsalles.mydemoapp2017.RootActivity;
+import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.adapters.RandomUserRecyclerViewAdapter;
+import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.database.RandomUserDatabase;
 import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models.RandomUser;
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 
@@ -34,6 +35,7 @@ public class RandomUserFragmentFavorites extends Fragment implements FavoritesIn
     private int mChosenPos = -1;
     private boolean mDrawerNotLoaded = true;
     private boolean mInstanceSaved = false;
+    private RandomUserRecyclerViewAdapter mAdapter;
 
     private FavoritesPresenter presenter;
 
@@ -42,12 +44,10 @@ public class RandomUserFragmentFavorites extends Fragment implements FavoritesIn
         // Required empty public constructor
     }
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new FavoritesPresenter(this);
-        presenter.prepareDaos((App) getActivity().getApplication());
     }
 
     @Override
@@ -58,9 +58,9 @@ public class RandomUserFragmentFavorites extends Fragment implements FavoritesIn
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.randomuser_recyclerView);
         mRecyclerView.setHasFixedSize(true);
-        presenter.setAdapter();
+        mAdapter = new RandomUserRecyclerViewAdapter(presenter.getData());
         mRecyclerView.setItemAnimator(new SlideInLeftAnimator());
-        mRecyclerView.setAdapter(presenter.getAdapter());
+        mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setHasFixedSize(false);
         mLayoutManager = new GridLayoutManager(getContext(), calculateNoOfColumns(getContext()));
         mLayoutManager.setAutoMeasureEnabled(false);
@@ -68,9 +68,9 @@ public class RandomUserFragmentFavorites extends Fragment implements FavoritesIn
 
         if (savedInstanceState != null) {
             mInstanceSaved = true;
-            ArrayList<RandomUser> data = savedInstanceState.getParcelableArrayList(RANDOM_USERS_DATAS);
+            ArrayList<RandomUser> data = (ArrayList<RandomUser>)savedInstanceState.getSerializable(RANDOM_USERS_DATAS);
             presenter.setData(data);
-            presenter.getAdapter().notifyItemInserted(0);
+            mAdapter.notifyItemInserted(0);
         } else {
             presenter.prepareToRequestMoreData();
         }
@@ -107,10 +107,10 @@ public class RandomUserFragmentFavorites extends Fragment implements FavoritesIn
                 if (resultCode == Activity.RESULT_OK && mChosenPos >= 0) {
                     Bundle bundle = data.getExtras();
                     if (!data.getBooleanExtra(IS_FAVORITED, true)) {
-                        presenter.getAdapter().removePosition(mChosenPos);
+                        mAdapter.removePosition(mChosenPos);
                     } else if (data.getBooleanExtra(HAS_NEW_DATA, false)) {
-                        RandomUser randomUser = bundle.getParcelable(RANDOM_USER);
-                        presenter.getAdapter().updatePosition(mChosenPos, randomUser);
+                        RandomUser randomUser = (RandomUser) bundle.getSerializable(RANDOM_USER);
+                        mAdapter.updatePosition(mChosenPos, randomUser);
                     }
                 }
                 break;
@@ -124,7 +124,33 @@ public class RandomUserFragmentFavorites extends Fragment implements FavoritesIn
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
-        savedInstanceState.putParcelableArrayList(RANDOM_USERS_DATAS, presenter.getData());
+        savedInstanceState.putSerializable(RANDOM_USERS_DATAS, presenter.getData());
         super.onSaveInstanceState(savedInstanceState);
+    }
+
+    @Override
+    public ArrayList<RandomUser> getAllRandomUsersFromDatabase() {
+        RandomUserDatabase database = new RandomUserDatabase(getActivity().getApplication());
+        return database.getAllRandomUsers();
+    }
+
+    @Override
+    public ArrayList<RandomUser> getCurrentViewData() {
+        return mAdapter.getAllData();
+    }
+
+    @Override
+    public void dataAddedInPosition(int position) {
+        mAdapter.notifyItemInserted(position);
+    }
+
+    @Override
+    public void dataAddedInRange(int positionStart, int itemCount) {
+        mAdapter.notifyItemRangeInserted(positionStart, itemCount);
+    }
+
+    @Override
+    public void dataRemovedFromPosition(int position) {
+        mAdapter.notifyItemRemoved(position);
     }
 }

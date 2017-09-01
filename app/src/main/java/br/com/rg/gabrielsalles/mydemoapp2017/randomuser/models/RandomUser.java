@@ -1,25 +1,26 @@
 package br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models;
 
 import android.os.Parcel;
-import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.greenrobot.greendao.DaoException;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Keep;
 import org.greenrobot.greendao.annotation.ToOne;
-import org.greenrobot.greendao.DaoException;
 import org.greenrobot.greendao.annotation.Unique;
+
+import java.io.Serializable;
 
 /**
  * Created by gabriel on 23/04/17.
  */
 
 @Entity
-public class RandomUser implements Parcelable {
+public class RandomUser implements Serializable {
 
     @Id
     private Long ru_id;
@@ -78,33 +79,50 @@ public class RandomUser implements Parcelable {
     @Expose
     private String nat;
 
+    private final static long serialVersionUID = 6858489505521393699L;
+
     private boolean favorite = false;
 
-    public static final Creator<RandomUser> CREATOR = new Creator<RandomUser>() {
+    /**
+     * No args constructor for use in serialization
+     *
+     */
+    public RandomUser() {
+    }
 
-        public RandomUser createFromParcel(Parcel in) {
-            RandomUser instance = new RandomUser();
-            instance.gender = ((String) in.readValue((String.class.getClassLoader())));
-            instance.name = ((RandomUserName) in.readValue((RandomUserName.class.getClassLoader())));
-            instance.location = ((RandomUserLocation) in.readValue((RandomUserLocation.class.getClassLoader())));
-            instance.email = ((String) in.readValue((String.class.getClassLoader())));
-            instance.login = ((RandomUserLogin) in.readValue((RandomUserLogin.class.getClassLoader())));
-            instance.dob = ((String) in.readValue((String.class.getClassLoader())));
-            instance.registered = ((String) in.readValue((String.class.getClassLoader())));
-            instance.phone = ((String) in.readValue((String.class.getClassLoader())));
-            instance.cell = ((String) in.readValue((String.class.getClassLoader())));
-            instance.dataId = ((RandomUserDataId) in.readValue((RandomUserDataId.class.getClassLoader())));
-            instance.picture = ((RandomUserPicture) in.readValue((RandomUserPicture.class.getClassLoader())));
-            instance.nat = ((String) in.readValue((String.class.getClassLoader())));
-            instance.favorite = (Boolean) in.readValue((Boolean.class.getClassLoader()));
-            instance.ru_id = ((Long) in.readValue(Long.class.getClassLoader()));
-            return instance;
-        }
-
-        public RandomUser[] newArray(int size) {
-            return (new RandomUser[size]);
-        }
-    };
+    /**
+     *
+     * @param picture
+     * @param id
+     * @param phone
+     * @param email
+     * @param location
+     * @param registered
+     * @param cell
+     * @param dob
+     * @param name
+     * @param gender
+     * @param nat
+     * @param login
+     */
+    @Keep
+    public RandomUser(String gender, RandomUserName name, RandomUserLocation location, String email,
+                      RandomUserLogin login, String dob, String registered, String phone, String cell,
+                      RandomUserDataId id, RandomUserPicture picture, String nat) {
+        super();
+        this.gender = gender;
+        this.name = name;
+        this.location = location;
+        this.email = email;
+        this.login = login;
+        this.dob = dob;
+        this.registered = registered;
+        this.phone = phone;
+        this.cell = cell;
+        this.dataId = id;
+        this.picture = picture;
+        this.nat = nat;
+    }
 
     /** Used to resolve relations */
     @Generated(hash = 2040040024)
@@ -129,12 +147,20 @@ public class RandomUser implements Parcelable {
     @Generated(hash = 1254489188)
     private transient boolean dataId__refreshed;
 
-    public RandomUser() {
-    }
-
-    @Generated(hash = 1119680070)
+    /**
+     *
+     * @param phone
+     * @param email
+     * @param registered
+     * @param cell
+     * @param dob
+     * @param gender
+     * @param nat
+     */
+    @Keep
     public RandomUser(Long ru_id, String gender, String email, String dob, String registered, String phone, String cell, String nat,
             boolean favorite) {
+        super();
         this.ru_id = ru_id;
         this.gender = gender;
         this.email = email;

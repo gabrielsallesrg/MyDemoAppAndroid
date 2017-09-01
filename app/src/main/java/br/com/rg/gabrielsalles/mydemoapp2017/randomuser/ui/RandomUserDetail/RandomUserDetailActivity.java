@@ -17,6 +17,7 @@ import android.widget.ImageButton;
 
 import br.com.rg.gabrielsalles.mydemoapp2017.R;
 import br.com.rg.gabrielsalles.mydemoapp2017.databinding.RandomUserActivityDetailBinding;
+import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.database.RandomUserDatabase;
 import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.models.RandomUser;
 import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.ui.RandomUserChoosePhoneDialog.RandomUserChoosePhoneDialog;
 import br.com.rg.gabrielsalles.mydemoapp2017.randomuser.ui.RandomUserEdit.RandomUserEditActivity;
@@ -34,6 +35,8 @@ public class RandomUserDetailActivity extends AppCompatActivity implements UserD
     private RandomUserActivityDetailBinding binding;
 
     private UserDetailPresenter presenter;
+    private RandomUserDatabase mDatabase;
+    private ImageButton mFavoriteImageButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +45,12 @@ public class RandomUserDetailActivity extends AppCompatActivity implements UserD
         }
         super.onCreate(savedInstanceState);
         presenter = new UserDetailPresenter(this);
-        presenter.prepareDaos(getApplication());
+        mDatabase = new RandomUserDatabase(getApplication());
         binding = DataBindingUtil.setContentView(this, R.layout.random_user_activity_detail);
         final Intent intent = getIntent();
 
         Bundle bundle = intent.getExtras();
-        presenter.setRandomUser((RandomUser)bundle.getParcelable(RANDOM_USER));
+        presenter.setRandomUser((RandomUser)bundle.getSerializable(RANDOM_USER));
         binding.setRandomuser(presenter.getRandomUser());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(intent.getStringExtra(TOOLBAR_TITLE));
@@ -55,7 +58,8 @@ public class RandomUserDetailActivity extends AppCompatActivity implements UserD
         binding.favorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.clickFavorite(!binding.getRandomuser().isFavorite(), (ImageButton)view);
+                mFavoriteImageButton = (ImageButton) view;
+                presenter.clickFavorite(!binding.getRandomuser().isFavorite());
                 presenter.setHasNewData(true);
             }
         });
@@ -131,9 +135,19 @@ public class RandomUserDetailActivity extends AppCompatActivity implements UserD
     }
 
     @Override
-    public void updateFavoriteImageAndBinding(ImageButton favoriteButton) {
-        favoriteButton.setImageResource((presenter.ismIsFavorite()) ? (android.R.drawable.star_big_on) : (R.drawable.ic_star_outline_grey600_36dp));
+    public void updateFavoriteImageAndBinding() {
+        mFavoriteImageButton.setImageResource((presenter.ismIsFavorite()) ? (android.R.drawable.star_big_on) : (R.drawable.ic_star_outline_grey600_36dp));
         binding.getRandomuser().setFavorite(presenter.ismIsFavorite());
+    }
+
+    @Override
+    public void saveUserInDatabase(RandomUser randomUser) {
+        mDatabase.saveUser(randomUser);
+    }
+
+    @Override
+    public void deleteUserFromDatabase(RandomUser randomUser) {
+        mDatabase.deleteUser(randomUser);
     }
 
     @Override
@@ -143,7 +157,7 @@ public class RandomUserDetailActivity extends AppCompatActivity implements UserD
 
         Intent intent = new Intent(this, RandomUserEditActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putParcelable(RANDOM_USER, presenter.getRandomUser());
+        bundle.putSerializable(RANDOM_USER, presenter.getRandomUser());
         intent.putExtras(bundle);
         startActivityForResult(intent, RANDOM_USER_EDIT, options.toBundle());
     }
@@ -156,7 +170,7 @@ public class RandomUserDetailActivity extends AppCompatActivity implements UserD
                 if (resultCode == Activity.RESULT_OK) {
                     Bundle bundle = data.getExtras();
                     if (data.getBooleanExtra(HAS_NEW_DATA, false)) {
-                        presenter.setRandomUser((RandomUser)bundle.getParcelable(RANDOM_USER));
+                        presenter.setRandomUser((RandomUser)bundle.getSerializable(RANDOM_USER));
                         presenter.saveIfFavorite();
                         binding.setRandomuser(presenter.getRandomUser());
                     }
@@ -175,7 +189,7 @@ public class RandomUserDetailActivity extends AppCompatActivity implements UserD
         presenter.updateFavorite();
         Intent resultIntent = new Intent();
         Bundle bundle = new Bundle();
-        bundle.putParcelable(RANDOM_USER, presenter.getRandomUser());
+        bundle.putSerializable(RANDOM_USER, presenter.getRandomUser());
         resultIntent.putExtras(bundle);
         resultIntent.putExtra(HAS_NEW_DATA, presenter.isHasNewData());
         resultIntent.putExtra(IS_FAVORITED, presenter.ismIsFavorite());
