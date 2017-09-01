@@ -11,14 +11,4 @@ public interface RandomUserApiInterface {
 
     @GET("/api/1.1/?results=15")
     Call<RandomUsersData> doGetRandomUsersData(@Query("page") int page);
-
-//    @POST("/api/users")
-//    Call<User> createUser(@Body User user);
-//
-//    @GET("/api/users?")
-//    Call<UserList> doGetUserList(@Query("page") String page);
-//
-//    @FormUrlEncoded
-//    @POST("/api/users?")
-//    Call<UserList> doCreateUserWithField(@Field("name") String name, @Field("job") String job);
 }

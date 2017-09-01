@@ -91,9 +91,9 @@
     <!-- Contact Information -->
     <string name="contact_info">Contact Information</string>
     <string name="my_name">Gabriel Guedes</string>
-    <string name="my_email_1">gabrielguedes@workflowict.com</string>
-    <string name="my_linkedin">https://www.linkedin.com/in/gabriel-salles-guedes-111018a0/</string>
-    <string name="my_linkedin_id">gabriel-salles-guedes-111018a0</string>
+    <string name="my_email_1">gabrielsalles.rg@gmail.com</string>
+    <string name="my_linkedin">https://www.linkedin.com/in/gabrielsallesguedes/</string>
+    <string name="my_linkedin_id">gabrielsallesguedes</string>
 
     <!-- ERRORS -->
     <string name="no_internet">No internet connection</string>
